@@ -43,9 +43,12 @@ paper by Paper Trail itself, not by the model.
 
 ## What it is
 
-<a href="assets/demo.mp4"><img src="assets/demo.jpg" alt="Paper Trail demo: an AI summary says the base models trained for 12 hours on 8 GPUs, and Paper Trail shows the exact quote on page 7 of the paper, verified" width="100%" /></a>
 
-<p align="center"><a href="assets/demo.mp4"><b>Watch the 23-second demo</b></a> (sound on)</p>
+
+https://github.com/user-attachments/assets/6f131cea-22f0-427a-91d9-3afe3b2e3cd4
+
+<a src="assets/demo.jpg" alt="Paper Trail demo: an AI summary says the base models trained for 12 hours on 8 GPUs, and Paper Trail shows the exact quote on page 7 of the paper, verified" width="100%" /></a>
+
 
 A model can summarise a paper in seconds. Checking that summary takes hours: you get fluent prose
 and no way to tell which sentence came from which page, or whether something was measured by the

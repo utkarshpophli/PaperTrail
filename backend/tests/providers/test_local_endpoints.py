@@ -52,3 +52,26 @@ def test_loopback_accepted(cls: type, good: str) -> None:
 )
 def test_openai_base_url_appends_v1_once(endpoint: str, expected: str) -> None:
     assert openai_base_url(endpoint) == expected
+
+
+@pytest.fixture
+def local_providers_disabled(monkeypatch: pytest.MonkeyPatch) -> None:
+    from app.core.config import get_settings
+
+    monkeypatch.setattr(get_settings(), "local_providers_enabled", False)
+
+
+@pytest.mark.parametrize("cls", LOCAL)
+def test_local_providers_refused_when_disabled_on_a_shared_server(cls: type, local_providers_disabled: None) -> None:
+    # On a hosted demo, "loopback" is the server's own services, not the
+    # visitor's machine: even a valid loopback endpoint must be refused.
+    with pytest.raises(InvalidConfigError, match="disabled on this server"):
+        cls(endpoint="http://localhost:11434")
+
+
+def test_catalog_hides_local_providers_when_disabled(local_providers_disabled: None) -> None:
+    from app.providers.registry import list_provider_catalog
+
+    catalog = list_provider_catalog()
+    assert catalog, "cloud providers must still be listed"
+    assert all(entry.auth != "none" for entry in catalog)

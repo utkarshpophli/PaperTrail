@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { LocalModeIndicator } from "./local-mode-indicator";
 import { __resetSessionModeForTests, markExternalDataSent, markProviderUsed } from "@/lib/session-mode-store";
@@ -15,6 +15,14 @@ const CLOUD_PROVIDER: ProviderCatalogEntry = {
 describe("LocalModeIndicator", () => {
   afterEach(() => {
     __resetSessionModeForTests();
+    vi.unstubAllEnvs();
+  });
+
+  it("never claims nothing leaves the machine on the hosted demo", () => {
+    vi.stubEnv("NEXT_PUBLIC_DEMO_MODE", "1");
+    render(<LocalModeIndicator />);
+    expect(screen.getByText("hosted demo · papers are on a shared server")).toBeInTheDocument();
+    expect(screen.queryByText("local · nothing leaves this machine")).not.toBeInTheDocument();
   });
 
   it("renders the local state by default", () => {

@@ -10,6 +10,7 @@ Paper Trail turns an AI/ML research paper into something you can verify, learn f
 You choose the model, cloud or local, and every quote the model hands back is checked against the
 paper by Paper Trail itself, not by the model.
 
+[![Live demo](https://img.shields.io/badge/live_demo-Hugging_Face-FFD21E?style=for-the-badge&logo=huggingface&logoColor=000&labelColor=1D1D1F)](https://huggingface.co/spaces/utkarshpophli/PaperTrail)
 [![License: MIT](https://img.shields.io/badge/license-MIT-1D1D1F?style=for-the-badge&labelColor=1D1D1F)](LICENSE)
 [![Local first](https://img.shields.io/badge/local--first-no_login-1B7A36?style=for-the-badge&labelColor=1D1D1F)](#your-keys-your-machine)
 [![Quotes verified](https://img.shields.io/badge/every_quote-verified_against_the_page-0066CC?style=for-the-badge&labelColor=1D1D1F)](#check-every-quote-against-its-page)
@@ -43,12 +44,7 @@ paper by Paper Trail itself, not by the model.
 
 ## What it is
 
-
-
 https://github.com/user-attachments/assets/6f131cea-22f0-427a-91d9-3afe3b2e3cd4
-
-<a src="assets/demo.jpg" alt="Paper Trail demo: an AI summary says the base models trained for 12 hours on 8 GPUs, and Paper Trail shows the exact quote on page 7 of the paper, verified" width="100%" /></a>
-
 
 A model can summarise a paper in seconds. Checking that summary takes hours: you get fluent prose
 and no way to tell which sentence came from which page, or whether something was measured by the

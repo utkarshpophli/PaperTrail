@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { DemoBanner } from "@/components/layout/demo-banner";
 import "./globals.css";
 
 // Font files live in the repo (Geist, SIL OFL, see fonts/OFL.txt), so neither
@@ -37,7 +38,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <DemoBanner />
+        {children}
+      </body>
     </html>
   );
 }

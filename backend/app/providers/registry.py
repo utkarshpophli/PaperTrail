@@ -16,6 +16,7 @@ from typing import Any, Literal
 
 from pydantic import BaseModel
 
+from app.core.config import get_settings
 from app.providers.anthropic import AnthropicProvider
 from app.providers.errors import InvalidConfigError
 from app.providers.exceptions import ProviderNotFoundError
@@ -71,7 +72,9 @@ def describe_provider(provider_id: str) -> str:
 
 
 def list_provider_catalog() -> list[ProviderCatalogEntry]:
-    return list(_CATALOG)
+    if get_settings().local_providers_enabled:
+        return list(_CATALOG)
+    return [entry for entry in _CATALOG if entry.auth != "none"]
 
 
 def build_provider(provider_id: str, *, api_key: str | None = None, endpoint: str | None = None) -> Any:

@@ -26,6 +26,10 @@ class Settings(BaseSettings):
     # one fixed local user (app.auth.dependencies). Only safe while the API is
     # reachable from this machine alone -- keep it bound to loopback.
     local_mode: bool = True
+    # Off on a shared hosted server (the public demo): there, "loopback" means
+    # the server's own services, not the visitor's machine, so Ollama / LM
+    # Studio / llama.cpp would be an SSRF path rather than a local model.
+    local_providers_enabled: bool = True
     # Read timeout for a single provider generation call. A full-document
     # extraction on a large model routinely exceeds a minute before the first
     # byte, so this is generous by design (connect/write stay short). HTTPX

@@ -1,5 +1,6 @@
 "use client";
 
+import { isDemoMode } from "@/lib/demo-mode";
 import { useSessionMode } from "@/lib/session-mode-store";
 
 /**
@@ -11,8 +12,13 @@ import { useSessionMode } from "@/lib/session-mode-store";
  */
 export function LocalModeIndicator({ collapsed = false }: { collapsed?: boolean }) {
   const mode = useSessionMode();
-  const isLocal = mode === "local";
-  const label = isLocal ? "local · nothing leaves this machine" : "external · data was sent outside this machine this session";
+  // On the hosted demo every paper is on a shared server, so "local" would be a false promise.
+  const isLocal = mode === "local" && !isDemoMode();
+  const label = isDemoMode()
+    ? "hosted demo · papers are on a shared server"
+    : isLocal
+      ? "local · nothing leaves this machine"
+      : "external · data was sent outside this machine this session";
 
   return (
     <div

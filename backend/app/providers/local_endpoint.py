@@ -5,13 +5,20 @@ provider construction, before any HTTP request is attempted.
 
 import httpx
 
+from app.core.config import get_settings
 from app.providers.errors import InvalidConfigError
 
 _LOOPBACK_HOSTS = {"127.0.0.1", "localhost", "::1"}
 
 
 def validate_loopback_endpoint(endpoint: str) -> str:
-    """Raises ``InvalidConfigError`` for anything but 127.0.0.1/localhost/::1."""
+    """Raises ``InvalidConfigError`` for anything but 127.0.0.1/localhost/::1,
+    and for every endpoint when local providers are disabled on this server."""
+    if not get_settings().local_providers_enabled:
+        raise InvalidConfigError(
+            "Local model providers are disabled on this server (shared hosted demo). "
+            "Run Paper Trail on your own machine to use Ollama, LM Studio or llama.cpp."
+        )
     try:
         parsed = httpx.URL(endpoint)
     except httpx.InvalidURL as exc:

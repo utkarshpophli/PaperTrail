@@ -15,7 +15,7 @@ from collections.abc import Sequence
 from app.evidence.prompts.shared import wrap_prompt
 from app.evidence.schemas import ClaimForPrompt, MetricForPrompt
 
-PROMPT_VERSION = "v2"
+PROMPT_VERSION = "v3"
 
 _INSTRUCTIONS = """\
 You are retelling an academic paper's contribution as a VISUAL STORY for a

@@ -12,7 +12,7 @@ from collections.abc import Sequence
 from app.evidence.prompts.shared import wrap_prompt
 from app.evidence.schemas import ClaimForPrompt
 
-PROMPT_VERSION = "v1"
+PROMPT_VERSION = "v2"
 
 _INSTRUCTIONS = """\
 Below is fenced data listing a paper's extracted figures (each with a

@@ -12,7 +12,6 @@ test pattern" instruction).
 
 import logging
 import re
-import uuid
 
 import pytest
 from sqlalchemy import select
@@ -52,7 +51,7 @@ from tests.evidence.test_service_integration import (
 _VISUAL_STAGE = {"visual": StageConfig(provider_id="google", api_key="fake-key", model="fake-model")}
 
 
-_CLAIM_KIND_RE = re.compile(r"\[CLAIM ([0-9a-f-]{36})\] \(kind=([a-z-]+)")
+_CLAIM_KIND_RE = re.compile(r"\[CLAIM (C\d+)\] \(kind=([a-z-]+)")
 
 
 class _VisualGeneratingProvider:
@@ -74,7 +73,7 @@ class _VisualGeneratingProvider:
             kinds = dict((cid, kind) for cid, kind in _CLAIM_KIND_RE.findall(prompt))
             method_id = next(cid for cid, kind in kinds.items() if kind == "method")
             limitation_id = next(cid for cid, kind in kinds.items() if kind == "limitation")
-            return make_story(method_id=uuid.UUID(method_id), limitation_id=uuid.UUID(limitation_id))
+            return make_story(method_id=method_id, limitation_id=limitation_id)
         if schema is GeneratedSectionsOutput:
             return GeneratedSectionsOutput(
                 sections=[GeneratedSectionDraft(heading="Overview", body="Synthesized body.", claim_ids=claim_ids)]

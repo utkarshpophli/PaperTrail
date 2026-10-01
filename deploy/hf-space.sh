@@ -10,6 +10,8 @@ STAGE="$(mktemp -d)"
 trap 'rm -rf "$STAGE"' EXIT
 
 git archive HEAD | tar -x -C "$STAGE"
+# Spaces build without build args: switch the staged copy to demo mode.
+sed -i 's/^ARG DEMO_MODE=0$/ARG DEMO_MODE=1/' "$STAGE/Dockerfile"
 {
   cat <<'YAML'
 ---

@@ -63,7 +63,7 @@ async def test_generate_story_returns_validated_spec() -> None:
     assert story == output
     prompt, schema = provider.calls[0]
     assert schema is StorySpecOutput
-    assert f"[CLAIM {method.id}] (kind=method" in prompt
+    assert "[CLAIM C1] (kind=method" in prompt
 
 
 async def test_generate_story_rejects_unknown_claim_id_after_one_retry() -> None:
@@ -211,8 +211,8 @@ async def test_generate_application_guide_filters_prompt_to_relevant_claim_kinds
     await generate_application_guide_sections(provider, claims=[_CLAIM_1, limitation_claim], metrics=[], model="m")
 
     prompt, _ = provider.calls[0]
-    assert f"[CLAIM {_CLAIM_1.id}]" in prompt
-    assert f"[CLAIM {limitation_claim.id}]" not in prompt
+    assert _CLAIM_1.statement in prompt
+    assert limitation_claim.statement not in prompt
 
 
 def _make_claim(kind: ClaimKind, statement: str):

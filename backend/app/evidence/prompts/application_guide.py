@@ -12,7 +12,7 @@ from collections.abc import Sequence
 from app.evidence.prompts.shared import build_claims_marked_text, wrap_prompt
 from app.evidence.schemas import ClaimForPrompt, MetricForPrompt
 
-PROMPT_VERSION = "v1"
+PROMPT_VERSION = "v2"
 
 _INSTRUCTIONS = """\
 You are writing a practical application guide for a reader asking "how would
@@ -36,7 +36,7 @@ For each section output:
 - "body": practical, application-focused prose. Never invent a number,
   result, or detail absent from the data below; label any illustrative
   non-sourced content explicitly as such.
-- "claim_ids": the "[CLAIM <id>]" ids (verbatim, as UUIDs) this section's
+- "claim_ids": the "[CLAIM <id>]" ids (exactly as shown, e.g. C3) this section's
   content is actually drawn from. Every section must cite at least one claim
   id, and every id must be one of the ids shown in the data below -- never
   invent a claim id.

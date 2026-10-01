@@ -93,5 +93,5 @@ async def test_generate_technical_sections_filters_prompt_to_relevant_claim_kind
     await generate_technical_sections(provider, claims=[background_claim, limitation_claim], metrics=[], model="m")
 
     prompt, _ = provider.calls[0]
-    assert f"[CLAIM {background_claim.id}]" in prompt
-    assert f"[CLAIM {limitation_claim.id}]" not in prompt
+    assert background_claim.statement in prompt
+    assert limitation_claim.statement not in prompt

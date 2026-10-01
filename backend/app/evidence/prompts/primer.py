@@ -12,7 +12,7 @@ from collections.abc import Sequence
 from app.evidence.prompts.shared import build_claims_marked_text, wrap_prompt
 from app.evidence.schemas import ClaimForPrompt
 
-PROMPT_VERSION = "v1"
+PROMPT_VERSION = "v2"
 
 _INSTRUCTIONS = """\
 You are writing a primer for a reader who needs the prerequisite background
@@ -37,7 +37,7 @@ For each section output:
 - "body": explanatory prose covering one prerequisite concept or piece of
   context. Label any general (non-paper-sourced) background explicitly as
   such.
-- "claim_ids": the "[CLAIM <id>]" ids (verbatim, as UUIDs) this section
+- "claim_ids": the "[CLAIM <id>]" ids (exactly as shown, e.g. C3) this section
   relates to. Every section must cite at least one claim id, and every id
   must be one of the ids shown in the data below -- never invent a claim id.
 

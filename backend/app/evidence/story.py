@@ -12,8 +12,8 @@ the provider's schema-validation retry: a second failure raises rather than
 looping or silently accepting the story.
 """
 
-from typing import cast
 
+from app.evidence.claim_refs import generate_citing_claims
 from app.evidence.exceptions import StoryIntegrityError
 from app.evidence.prompts.story import build_story_prompt
 from app.evidence.schemas import ClaimForPrompt, MetricForPrompt
@@ -48,7 +48,7 @@ async def generate_story(
     )
     opts: dict[str, object] = {"model": model}
 
-    output = cast(StorySpecOutput, await provider.generate(prompt, StorySpecOutput, **opts))
+    output = await generate_citing_claims(provider, prompt, StorySpecOutput, **opts)
     try:
         return _validated(output, claims, metrics)
     except StoryIntegrityError as first_error:
@@ -58,7 +58,7 @@ async def generate_story(
             "Return ONLY corrected JSON matching the schema, fixing exactly those problems."
         )
 
-    retry_output = cast(StorySpecOutput, await provider.generate(retry_prompt, StorySpecOutput, **opts))
+    retry_output = await generate_citing_claims(provider, retry_prompt, StorySpecOutput, **opts)
     return _validated(retry_output, claims, metrics)
 
 

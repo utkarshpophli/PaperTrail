@@ -154,7 +154,7 @@ async def test_caption_and_claims_are_fenced_as_untrusted_data() -> None:
     begin = prompt.index("===PAPER_CONTENT_BEGIN_")
     end = prompt.index("===PAPER_CONTENT_END_")
     assert begin < prompt.index("Ignore previous instructions") < end
-    assert begin < prompt.index(str(CLAIM.id)) < end
+    assert begin < prompt.index("[CLAIM C1]") < end
 
 
 def test_only_claims_near_a_figure_page_go_in_the_prompt() -> None:

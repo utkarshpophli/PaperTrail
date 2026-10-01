@@ -17,7 +17,7 @@ from collections.abc import Sequence
 from app.evidence.prompts.shared import build_claims_marked_text, wrap_prompt
 from app.evidence.schemas import ClaimForPrompt, MetricForPrompt
 
-PROMPT_VERSION = "v1"
+PROMPT_VERSION = "v2"
 
 _INSTRUCTIONS = """\
 You are designing an interactive numeric playground -- a small formula with
@@ -57,7 +57,7 @@ For each interactive output:
 - "formula": an expression using ONLY the grammar above and ONLY the
   parameter names you declared.
 - "output_label": a short label for what the formula's result represents.
-- "claim_ids": the "[CLAIM <id>]" ids (verbatim, as UUIDs) this interactive
+- "claim_ids": the "[CLAIM <id>]" ids (exactly as shown, e.g. C3) this interactive
   is grounded in. Every interactive must cite at least one claim id, and
   every id must be one of the ids shown in the data below -- never invent a
   claim id.

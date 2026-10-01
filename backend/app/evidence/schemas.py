@@ -14,6 +14,7 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from app.evidence.claim_refs import ClaimId
 from app.evidence.formula import MAX_FORMULA_LENGTH
 from app.models.claim import ClaimKind, VerificationStatus
 
@@ -227,7 +228,7 @@ class AssistantAnswerOutput(BaseModel):
     # cap and, unlike every other generated content type, skipped the
     # markup-stripping sanitizer entirely before reaching the client.
     answer: str = Field(min_length=1, max_length=8000)
-    claim_ids: list[uuid.UUID] = Field(default_factory=list)
+    claim_ids: list[ClaimId] = Field(default_factory=list)
 
 
 class GeneratedSectionDraft(BaseModel):
@@ -245,7 +246,7 @@ class GeneratedSectionDraft(BaseModel):
     # path. Enforcing it here instead lets the existing retry recover.
     heading: str = Field(min_length=1, max_length=512)
     body: str = Field(min_length=1)
-    claim_ids: list[uuid.UUID] = Field(min_length=1)
+    claim_ids: list[ClaimId] = Field(min_length=1)
 
 
 class GeneratedSectionsOutput(BaseModel):
@@ -266,7 +267,7 @@ class QuizQuestionDraft(BaseModel):
     # (String(1024)) -- same over-length-crashes-persistence fix as above.
     correct_answer: str = Field(min_length=1, max_length=1024)
     explanation: str = Field(min_length=1)
-    claim_ids: list[uuid.UUID] = Field(min_length=1)
+    claim_ids: list[ClaimId] = Field(min_length=1)
 
 
 class QuizQuestionsOutput(BaseModel):
@@ -280,7 +281,7 @@ class DerivationStepDraft(BaseModel):
 
     explanation: str = Field(min_length=1)
     formula: str = Field(min_length=1)
-    claim_ids: list[uuid.UUID] = Field(min_length=1)
+    claim_ids: list[ClaimId] = Field(min_length=1)
 
 
 class DerivationDraft(BaseModel):
@@ -347,7 +348,7 @@ class InteractiveDraft(BaseModel):
     parameters: list[InteractiveParameterDraft] = Field(min_length=1, max_length=4)
     formula: str = Field(min_length=1, max_length=MAX_FORMULA_LENGTH)
     output_label: str = Field(min_length=1, max_length=256)
-    claim_ids: list[uuid.UUID] = Field(min_length=1)
+    claim_ids: list[ClaimId] = Field(min_length=1)
 
 
 class InteractivesOutput(BaseModel):
@@ -415,7 +416,7 @@ class GeneratedSectionResponse(BaseModel):
     title: str
     content: str
     order: int
-    claim_ids: list[uuid.UUID]
+    claim_ids: list[ClaimId]
     # Story rows carry {kicker, index_label, visual}; every other type is None.
     data: dict[str, Any] | None = None
     created_at: datetime
@@ -448,14 +449,14 @@ class QuizQuestionResponse(BaseModel):
     options: list[str] | None
     correct_answer: str
     explanation: str
-    claim_ids: list[uuid.UUID]
+    claim_ids: list[ClaimId]
     created_at: datetime
 
 
 class DerivationStepResponse(BaseModel):
     explanation: str
     formula: str
-    claim_ids: list[uuid.UUID]
+    claim_ids: list[ClaimId]
 
 
 class DerivationResponse(BaseModel):
@@ -487,7 +488,7 @@ class InteractiveResponse(BaseModel):
     parameters: list[InteractiveParameterResponse]
     formula: str
     output_label: str
-    claim_ids: list[uuid.UUID]
+    claim_ids: list[ClaimId]
     created_at: datetime
 
 

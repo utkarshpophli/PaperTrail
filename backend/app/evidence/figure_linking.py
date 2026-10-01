@@ -10,10 +10,10 @@ be persisted, but it also shouldn't cost the paper its other figure links.
 
 import re
 import uuid
-from typing import cast
 
 from pydantic import BaseModel, Field
 
+from app.evidence.claim_refs import ClaimId, generate_citing_claims
 from app.discovery.sanitize import sanitize_generated_text
 from app.evidence.prompts.figures import build_figure_prompt
 from app.evidence.schemas import ClaimForPrompt
@@ -54,7 +54,7 @@ class FigureClaimContext(BaseModel):
 
 class FigureLinkDraft(BaseModel):
     filename: str = Field(min_length=1, max_length=512)
-    claim_ids: list[uuid.UUID] = Field(default_factory=list)
+    claim_ids: list[ClaimId] = Field(default_factory=list)
     why_it_matters: str = Field(default="", max_length=2000)
 
 
@@ -64,7 +64,7 @@ class FigureLinksOutput(BaseModel):
 
 class FigureLink(BaseModel):
     filename: str
-    claim_ids: list[uuid.UUID]
+    claim_ids: list[ClaimId]
     why_it_matters: str | None
 
 
@@ -99,7 +99,7 @@ async def link_figures(
         claims=claims_near_figures(figures, contexts),
     )
     opts: dict[str, object] = {"model": model}
-    output = cast(FigureLinksOutput, await provider.generate(prompt, FigureLinksOutput, **opts))
+    output = await generate_citing_claims(provider, prompt, FigureLinksOutput, **opts)
 
     by_filename = {draft.filename: draft for draft in output.figures}  # unknown filenames never match an input
     return [_validated_link(figure, by_filename.get(figure.filename), known_claim_ids) for figure in figures]

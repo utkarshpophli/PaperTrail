@@ -10,7 +10,6 @@ Paper Trail turns an AI/ML research paper into something you can verify, learn f
 You choose the model, cloud or local, and every quote the model hands back is checked against the
 paper by Paper Trail itself, not by the model.
 
-[![Live demo](https://img.shields.io/badge/live_demo-Hugging_Face-FFD21E?style=for-the-badge&logo=huggingface&logoColor=000&labelColor=1D1D1F)](https://huggingface.co/spaces/utkarshpophli/PaperTrail)
 [![License: MIT](https://img.shields.io/badge/license-MIT-1D1D1F?style=for-the-badge&labelColor=1D1D1F)](LICENSE)
 [![Local first](https://img.shields.io/badge/local--first-no_login-1B7A36?style=for-the-badge&labelColor=1D1D1F)](#your-keys-your-machine)
 [![Quotes verified](https://img.shields.io/badge/every_quote-verified_against_the_page-0066CC?style=for-the-badge&labelColor=1D1D1F)](#check-every-quote-against-its-page)
@@ -151,6 +150,26 @@ content, and points back to the claims it used.
 ---
 
 ## Running locally
+
+### Quick start with Docker
+
+One image runs everything (database, API and web app). You only need Docker.
+
+```bash
+git clone https://github.com/utkarshpophli/PaperTrail.git
+cd PaperTrail
+docker build -t papertrail .
+docker run -p 127.0.0.1:7860:7860 -v papertrail-data:/data papertrail
+```
+
+Open http://localhost:7860, pick a cloud provider and paste your API key. Your papers are kept in
+the `papertrail-data` volume between runs. The `127.0.0.1:` part keeps the app reachable from your
+machine only. Keep it: there is no login.
+
+Local model servers (Ollama, LM Studio, llama.cpp) need the manual setup below. Inside Docker,
+`localhost` is the container, not your machine.
+
+### Manual setup
 
 Prerequisites: Python 3.12+, Node.js LTS, PostgreSQL 16+ with `pgvector`, and the Tesseract binary
 for scanned-page OCR.

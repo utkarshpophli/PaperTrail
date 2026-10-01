@@ -11,7 +11,7 @@ from collections.abc import Sequence
 from app.evidence.prompts.shared import build_claims_marked_text, wrap_prompt
 from app.evidence.schemas import ClaimForPrompt
 
-PROMPT_VERSION = "v1"
+PROMPT_VERSION = "v2"
 
 _INSTRUCTIONS = """\
 You are writing comprehension-check quiz questions for a reader who just
@@ -33,7 +33,7 @@ For each question output:
 - "explanation": a sentence explaining why that answer is correct, grounded
   in the claim(s) below -- never introduce a new fact not present in the
   claim(s) cited.
-- "claim_ids": the "[CLAIM <id>]" ids (verbatim, as UUIDs) this question is
+- "claim_ids": the "[CLAIM <id>]" ids (exactly as shown, e.g. C3) this question is
   actually testing. Every question must cite at least one claim id, and
   every id must be one of the ids shown in the data below -- never invent a
   claim id.

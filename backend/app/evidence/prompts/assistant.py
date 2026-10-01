@@ -33,7 +33,7 @@ from app.evidence.schemas import (
     PaperContextForPrompt,
 )
 
-PROMPT_VERSION = "v1"
+PROMPT_VERSION = "v2"
 
 _ACTION_INSTRUCTIONS: dict[str, str] = {
     "understand": """\
@@ -126,7 +126,7 @@ Respond with:
 - "answer": your answer, using ONLY the information in the data below --
   never invent a number, citation, equation, or implementation detail it
   doesn't contain.
-- "claim_ids": the "[CLAIM <id>]" ids (verbatim, as UUIDs) your answer is
+- "claim_ids": the "[CLAIM <id>]" ids (exactly as shown, e.g. C3) your answer is
   actually grounded in. Cite every claim id your answer draws from, and only
   ids that actually appear in the data below -- never invent one.
 

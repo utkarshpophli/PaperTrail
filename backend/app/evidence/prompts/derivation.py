@@ -16,7 +16,7 @@ from collections.abc import Sequence
 from app.evidence.prompts.shared import build_claims_marked_text, wrap_prompt
 from app.evidence.schemas import ClaimForPrompt, MetricForPrompt
 
-PROMPT_VERSION = "v1"
+PROMPT_VERSION = "v2"
 
 _INSTRUCTIONS = """\
 You are writing a stepped walkthrough of a key equation or derivation from
@@ -40,7 +40,7 @@ For each derivation output:
 - "steps": an ordered list, each with:
   - "explanation": prose explaining this step.
   - "formula": the display-only formula/expression for this step.
-  - "claim_ids": the "[CLAIM <id>]" ids (verbatim, as UUIDs) this step is
+  - "claim_ids": the "[CLAIM <id>]" ids (exactly as shown, e.g. C3) this step is
     grounded in. Every step must cite at least one claim id, and every id
     must be one of the ids shown in the data below -- never invent a claim
     id.

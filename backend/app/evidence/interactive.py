@@ -20,8 +20,8 @@ unvalidated formula slipping through) if the second attempt is still bad.
 """
 
 import uuid
-from typing import cast
 
+from app.evidence.claim_refs import generate_citing_claims
 from app.evidence.exceptions import (
     FormulaEvaluationError,
     FormulaValidationError,
@@ -55,7 +55,7 @@ async def generate_interactives(
     opts: dict[str, object] = {"model": model}
     known_claim_ids = {claim.id for claim in claims}
 
-    output = cast(InteractivesOutput, await provider.generate(prompt, InteractivesOutput, **opts))
+    output = await generate_citing_claims(provider, prompt, InteractivesOutput, **opts)
     error_detail = _first_formula_error(output.interactives)
     if error_detail is None:
         _reject_unknown_claim_ids(output.interactives, known_claim_ids)
@@ -67,7 +67,7 @@ async def generate_interactives(
         "Return ONLY corrected JSON matching the schema, using exclusively "
         "the whitelisted operators/functions described above."
     )
-    retry_output = cast(InteractivesOutput, await provider.generate(retry_prompt, InteractivesOutput, **opts))
+    retry_output = await generate_citing_claims(provider, retry_prompt, InteractivesOutput, **opts)
     retry_error_detail = _first_formula_error(retry_output.interactives)
     if retry_error_detail is not None:
         raise InteractiveFormulaInvalidError(

@@ -118,7 +118,7 @@ def _extraction_responses() -> dict[type, object]:
     }
 
 
-_CLAIM_MARKER_RE = re.compile(r"\[CLAIM ([0-9a-f-]{36})\]")
+_CLAIM_MARKER_RE = re.compile(r"\[CLAIM (C\d+)\]")
 
 
 class _SectionGeneratingProvider:

@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 # Boots the demo container: Postgres -> migrations -> API -> web -> nginx.
-# Everything lives under /tmp, so a Space restart starts from a clean slate.
+# Everything lives under /data: mount a volume there to keep papers across
+# restarts (the hosted demo doesn't, so it starts clean on every restart).
 set -euo pipefail
 
-DATA=/tmp/papertrail
+DATA=/data
 PGDATA="$DATA/pg"
 mkdir -p "$DATA/storage"
+# A container that was killed leaves a stale lock; nothing else can own it here.
+rm -f "$PGDATA/postmaster.pid"
 
 if [ ! -s "$PGDATA/PG_VERSION" ]; then
   initdb -D "$PGDATA" -U papertrail --auth=trust >/dev/null
@@ -15,11 +18,12 @@ pg_ctl -D "$PGDATA" -l "$DATA/postgres.log" -w \
 createdb -h 127.0.0.1 -U papertrail papertrail 2>/dev/null || true
 
 export DATABASE_URL="postgresql+asyncpg://papertrail@127.0.0.1:5432/papertrail"
-# Local mode (no accounts) is safe here only because nginx is the sole public
+# Local mode (no accounts) is safe here only because nginx is the sole
 # listener; a fresh random secret per boot since no session outlives a restart.
 export JWT_SECRET_KEY="${JWT_SECRET_KEY:-$(python -c 'import secrets; print(secrets.token_urlsafe(48))')}"
 export LOCAL_MODE=true
-export LOCAL_PROVIDERS_ENABLED=false
+# On the shared demo, "localhost" is the server, not the visitor: no local models.
+if [ "${DEMO_MODE:-0}" = "1" ]; then export LOCAL_PROVIDERS_ENABLED=false; fi
 export STORAGE_DIR="$DATA/storage"
 
 cd /app/backend

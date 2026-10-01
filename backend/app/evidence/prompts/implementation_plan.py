@@ -17,7 +17,7 @@ from collections.abc import Sequence
 from app.evidence.prompts.shared import build_claims_marked_text, wrap_prompt
 from app.evidence.schemas import ClaimForPrompt, MetricForPrompt
 
-PROMPT_VERSION = "v1"
+PROMPT_VERSION = "v2"
 
 _INSTRUCTIONS = """\
 You are writing a step-by-step implementation plan for a reader who wants to
@@ -49,7 +49,7 @@ For each step output:
   the data below. Never invent a number, citation, equation, or
   implementation detail absent from it; label any illustrative non-sourced
   value explicitly as such.
-- "claim_ids": the "[CLAIM <id>]" ids (verbatim, as UUIDs) this step's
+- "claim_ids": the "[CLAIM <id>]" ids (exactly as shown, e.g. C3) this step's
   content is actually drawn from. Every step must cite at least one claim
   id, and every id must be one of the ids shown in the data below -- never
   invent a claim id. The README is supporting context only and is never

@@ -22,7 +22,7 @@ from app.providers.base import ModelInfo
 from tests.evidence.conftest import make_parsed_paper
 from tests.evidence.test_service_integration import PAGE_1_TEXT, PAGE_2_TEXT, _EVIDENCE_STAGE, _extraction_responses
 
-_CLAIM_MARKER_RE = re.compile(r"\[CLAIM ([0-9a-f-]{36})\]")
+_CLAIM_MARKER_RE = re.compile(r"\[CLAIM (C\d+)\]")
 
 
 class _AssistantAnsweringProvider:

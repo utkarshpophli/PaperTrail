@@ -15,6 +15,8 @@ from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, StringConstraints, TypeAdapter, model_validator
 
+from app.evidence.claim_refs import ClaimId
+
 # Length caps on every string: a hijacked/rambling pass can't stuff a section
 # with an arbitrarily large payload, and the UI has a bounded layout to fill.
 _Short = Annotated[str, StringConstraints(min_length=1, max_length=120)]
@@ -228,7 +230,7 @@ class StorySectionDraft(_Strict):
     kicker: Annotated[str, StringConstraints(min_length=1, max_length=80)]
     title: Annotated[str, StringConstraints(min_length=1, max_length=200)]
     body: Annotated[str, StringConstraints(min_length=1, max_length=2000)]
-    claim_ids: list[uuid.UUID] = Field(min_length=1, max_length=12)
+    claim_ids: list[ClaimId] = Field(min_length=1, max_length=12)
     visual: Visual
 
 
@@ -256,7 +258,7 @@ class StorySectionResponse(_Strict):
     kicker: str
     title: str
     body: str
-    claim_ids: list[uuid.UUID]
+    claim_ids: list[ClaimId]
     visual: Visual
 
 

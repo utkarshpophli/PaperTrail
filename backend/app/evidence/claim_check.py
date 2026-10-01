@@ -12,10 +12,11 @@ is still never persisted.
 """
 
 from collections.abc import Callable
-from typing import TypeVar, cast
+from typing import TypeVar
 
 from pydantic import BaseModel
 
+from app.evidence.claim_refs import generate_citing_claims
 from app.evidence.exceptions import (
     DerivationReferencesUnknownClaimError,
     QuizReferencesUnknownClaimError,
@@ -36,7 +37,7 @@ async def generate_with_claim_check(
     provider: AIProvider, prompt: str, schema: type[_T], *, model: str, check: Callable[[_T], None]
 ) -> _T:
     """``check`` raises one of the unknown-claim errors on a bad id."""
-    output = cast(_T, await provider.generate(prompt, schema, model=model))
+    output = await generate_citing_claims(provider, prompt, schema, model=model)
     try:
         check(output)
         return output
@@ -45,8 +46,8 @@ async def generate_with_claim_check(
             f"{prompt}\n\n"
             f"Your previous response was rejected: {exc.message}\n"
             "Return ONLY corrected JSON matching the schema. Every claim_id must be copied "
-            "exactly from the claims listed above; never invent or alter one."
+            "exactly as shown in the [CLAIM ...] markers above (for example C3); never invent one."
         )
-    retry = cast(_T, await provider.generate(repair_prompt, schema, model=model))
+    retry = await generate_citing_claims(provider, repair_prompt, schema, model=model)
     check(retry)
     return retry

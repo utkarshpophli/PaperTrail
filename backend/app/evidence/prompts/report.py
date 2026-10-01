@@ -14,7 +14,7 @@ from collections.abc import Sequence
 from app.evidence.prompts.shared import build_claims_marked_text, wrap_prompt
 from app.evidence.schemas import ClaimForPrompt
 
-PROMPT_VERSION = "v1"
+PROMPT_VERSION = "v2"
 
 _INSTRUCTIONS = """\
 You are writing a deep, explanatory report on an academic paper for a reader
@@ -35,7 +35,7 @@ For each section output:
 - "body": several sentences of explanatory prose synthesizing the claims
   that support it. Organize and explain what the claims already say --
   never paraphrase into a new number or finding they don't contain.
-- "claim_ids": the "[CLAIM <id>]" ids (verbatim, as UUIDs) this section's
+- "claim_ids": the "[CLAIM <id>]" ids (exactly as shown, e.g. C3) this section's
   content is actually drawn from. Every section must cite at least one
   claim id, and every id must be one of the ids shown in the data below --
   never invent a claim id.

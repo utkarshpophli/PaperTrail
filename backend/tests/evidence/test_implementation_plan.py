@@ -82,8 +82,8 @@ async def test_generate_implementation_plan_filters_prompt_to_method_and_result_
     )
 
     prompt, _ = provider.calls[0]
-    assert f"[CLAIM {_METHOD_CLAIM.id}]" in prompt
-    assert f"[CLAIM {_LIMITATION_CLAIM.id}]" not in prompt
+    assert _METHOD_CLAIM.statement in prompt
+    assert _LIMITATION_CLAIM.statement not in prompt
 
 
 async def test_generate_implementation_plan_wraps_readme_in_fenced_nonce_block() -> None:

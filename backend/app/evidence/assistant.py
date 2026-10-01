@@ -19,10 +19,10 @@ passes them in, same "build prompt, call the provider, validate" division as
 import re
 import uuid
 from collections.abc import Sequence
-from typing import cast
 
 from pydantic import BaseModel
 
+from app.evidence.claim_refs import ClaimId, generate_citing_claims
 from app.core.logging import get_logger
 from app.evidence.exceptions import AssistantActionNotSupportedError
 from app.evidence.prompts.assistant import build_assistant_prompt
@@ -100,7 +100,7 @@ class AssistantDraft(BaseModel):
     """
 
     answer: str
-    claim_ids: list[uuid.UUID]
+    claim_ids: list[ClaimId]
 
 
 def _tokenize(text: str) -> set[str]:
@@ -279,9 +279,9 @@ async def run_assistant_query(
         papers_context=papers_context,
     )
     opts: dict[str, object] = {"model": model}
-    output = cast(AssistantAnswerOutput, await provider.generate(prompt, AssistantAnswerOutput, **opts))
+    output = await generate_citing_claims(provider, prompt, AssistantAnswerOutput, **opts)
 
-    resolved_claim_ids: list[uuid.UUID] = []
+    resolved_claim_ids: list[ClaimId] = []
     seen: set[uuid.UUID] = set()
     for claim_id in output.claim_ids:
         if claim_id not in known_claim_ids:

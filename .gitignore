@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+
+# Uploaded papers / extracted figures (Phase 1)
+storage/
+backend/storage/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build
+dist/
+build/
+coverage/
+
+# Local AI-tooling artifacts (not project code)
+.continuum/
+ruvector.db
+
+# Internal design docs: kept locally, not committed
+docs/
+
+# Launch video build output
+brag-output/
+
+# Local AI-assistant config and notes: kept locally, not committed
+.claude/
+CLAUDE.md
+BUG_REPORT.md
+test_nvidia_api.py

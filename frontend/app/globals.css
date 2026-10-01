@@ -1,0 +1,192 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/*
+ * Design tokens. Every color is a CSS variable with a light and a dark value
+ * (see :root below), so components never hard-code a color.
+ */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Studio identity: one accent (--brand, the tint blue), the same in every
+     paper. Used for highlights, never as the only carrier of meaning. */
+  --color-paper: var(--paper);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-line: var(--line);
+  --color-line-dark: var(--line-dark);
+  --color-brand: var(--brand);
+  --color-paper-accent: var(--paper-accent);
+  /* Text/icons drawn on an ink or accent fill; flips with the mode. */
+  --color-on-ink: var(--on-ink);
+  --color-on-accent: var(--on-accent);
+
+  /* Verification-status tokens (docs/UI_UX.md: never color alone — always
+     paired with an icon + text label in the VerificationBadge component). */
+  --color-verified: var(--verified);
+  --color-verified-bg: var(--verified-bg);
+  --color-partial: var(--partial);
+  --color-partial-bg: var(--partial-bg);
+  --color-mismatch: var(--mismatch);
+  --color-mismatch-bg: var(--mismatch-bg);
+  --color-not-found: var(--not-found);
+  --color-not-found-bg: var(--not-found-bg);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-geist-sans);
+
+  /* Type scale (root 16px) — size/line-height pairs only; family comes from
+     font-display/font-sans/font-mono, weight from font-normal/medium/semibold. */
+  --text-display: 3rem;
+  --text-display--line-height: 3.5rem;
+  --text-h1: 2.25rem;
+  --text-h1--line-height: 2.75rem;
+  --text-h2: 1.75rem;
+  --text-h2--line-height: 2.25rem;
+  --text-h3: 1.375rem;
+  --text-h3--line-height: 1.875rem;
+  --text-h4: 1.125rem;
+  --text-h4--line-height: 1.625rem;
+  --text-body-lg: 1.0625rem;
+  --text-body-lg--line-height: 1.75rem;
+  --text-body: 0.9375rem;
+  --text-body--line-height: 1.5rem;
+  --text-ui-label: 0.8125rem;
+  --text-ui-label--line-height: 1.125rem;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1rem;
+  --text-mono: 0.84375rem;
+  --text-mono--line-height: 1.375rem;
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+}
+
+/* Apple-style reading palette: a soft gray canvas behind white content
+   panels, #1D1D1F ink rather than pure black, one tint color. Every text
+   pair is WCAG AA (4.5:1+) in both modes. The theme is the data-theme
+   attribute on <html>: the saved choice, else the OS setting (set before
+   paint by the script in app/layout.tsx). */
+:root {
+  color-scheme: light;
+  --radius: 0.75rem;
+  --background: #F2F2F7;
+  --foreground: #1D1D1F;
+  --surface: #FFFFFF;
+  --card: #FFFFFF;
+  --card-foreground: #1D1D1F;
+  --popover: #FFFFFF;
+  --popover-foreground: #1D1D1F;
+  --primary: #1D1D1F;
+  --primary-foreground: #FFFFFF;
+  --secondary: #E8E8ED;
+  --secondary-foreground: #1D1D1F;
+  --muted: #E8E8ED;
+  --muted-foreground: #636366;
+  --accent: #E8E8ED;
+  --accent-foreground: #1D1D1F;
+  --destructive: #D70015;
+  --border: #D2D2D7;
+  --input: #D2D2D7;
+  --ring: #0066CC;
+  --paper: #F2F2F7;
+  --surface-2: #F5F5F7;
+  --ink: #1D1D1F;
+  --ink-soft: #515154;
+  --line: #D2D2D7;
+  --line-dark: #AEAEB2;
+  --brand: #0066CC;
+  --paper-accent: var(--brand);
+  --on-ink: #FFFFFF;
+  --on-accent: #FFFFFF;
+  --verified: #1B7A36;
+  --verified-bg: #E6F4E9;
+  --partial: #B25000;
+  --partial-bg: #FFF1E5;
+  --mismatch: #D70015;
+  --mismatch-bg: #FFE9EB;
+  --not-found: #636366;
+  --not-found-bg: #EDEDF0;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #121214;
+  --foreground: #F5F5F7;
+  --surface: #1C1C1E;
+  --card: #1C1C1E;
+  --card-foreground: #F5F5F7;
+  --popover: #1C1C1E;
+  --popover-foreground: #F5F5F7;
+  --primary: #F5F5F7;
+  --primary-foreground: #1D1D1F;
+  --secondary: #2C2C2E;
+  --secondary-foreground: #F5F5F7;
+  --muted: #2C2C2E;
+  --muted-foreground: #98989D;
+  --accent: #2C2C2E;
+  --accent-foreground: #F5F5F7;
+  --destructive: #FF6961;
+  --border: #38383A;
+  --input: #38383A;
+  --ring: #2997FF;
+  --paper: #121214;
+  --surface-2: #2C2C2E;
+  --ink: #F5F5F7;
+  --ink-soft: #D1D1D6;
+  --line: #38383A;
+  --line-dark: #48484A;
+  --brand: #2997FF;
+  --paper-accent: var(--brand);
+  --on-ink: #1D1D1F;
+  --on-accent: #0A0A0B;
+  --verified: #30D158;
+  --verified-bg: #0F2A17;
+  --partial: #FF9F0A;
+  --partial-bg: #33230A;
+  --mismatch: #FF6961;
+  --mismatch-bg: #3A1311;
+  --not-found: #98989D;
+  --not-found-bg: #2C2C2E;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  ::selection {
+    background: var(--paper-accent);
+    color: var(--on-accent);
+  }
+  html {
+    @apply font-sans;
+  }
+}

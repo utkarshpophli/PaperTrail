@@ -28,6 +28,8 @@ export STORAGE_DIR="$DATA/storage"
 
 cd /app/backend
 alembic upgrade head
+# Bundled example papers (first boot only; skipped, not fatal, if arXiv is unreachable).
+python -m app.example_papers load || echo "example papers skipped"
 uvicorn app.main:app --host 127.0.0.1 --port 8000 --no-proxy-headers &
 (cd /app/frontend && HOSTNAME=127.0.0.1 PORT=3000 exec node server.js) &
 nginx -c /app/deploy/nginx.conf -g 'daemon off;' &

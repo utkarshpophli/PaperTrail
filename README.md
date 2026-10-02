@@ -162,7 +162,10 @@ docker build -t papertrail .
 docker run -p 127.0.0.1:7860:7860 -v papertrail-data:/data papertrail
 ```
 
-Open http://localhost:7860, pick a cloud provider and paste your API key. Your papers are kept in
+Open http://localhost:7860. The library already holds three finished examples (*Attention Is All
+You Need*, *DeepSeek-V3* and *GLM-5*): on first start the app downloads those papers from arXiv and
+attaches their analyses, so you can explore every view before running anything. To analyse your own
+paper, pick a cloud provider and paste your API key. Your papers are kept in
 the `papertrail-data` volume between runs. The `127.0.0.1:` part keeps the app reachable from your
 machine only. Keep it: there is no login.
 
@@ -182,6 +185,7 @@ python -m venv .venv
 .venv/Scripts/python.exe -m pip install -r requirements-dev.txt
 cp .env.example .env            # set DATABASE_URL and JWT_SECRET_KEY
 .venv/Scripts/python.exe -m alembic upgrade head
+.venv/Scripts/python.exe -m app.example_papers load   # optional: the three example analyses
 .venv/Scripts/python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000
 ```
 

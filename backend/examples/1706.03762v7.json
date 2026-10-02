@@ -1,0 +1,3407 @@
+{
+ "arxiv_id": "1706.03762v7",
+ "title": "Attention Is All You Need",
+ "authors": [
+  "Ashish Vaswani",
+  "Noam Shazeer",
+  "Niki Parmar",
+  "Jakob Uszkoreit",
+  "Llion Jones",
+  "Aidan N. Gomez",
+  "Lukasz Kaiser",
+  "Illia Polosukhin"
+ ],
+ "year": 2017,
+ "tables": {
+  "evidence": [
+   {
+    "id": "4d1cfecd-f6d4-464f-9658-cede1ba301a9",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "thesis": "The paper introduces the Transformer, a sequence transduction architecture built entirely on attention mechanisms with no recurrence or convolutions. It matches or beats the best prior models on machine translation while being more parallelizable and far cheaper to train.",
+    "plain_summary": "Earlier translation systems relied on recurrent or convolutional neural networks, which process text step by step and are slow to train. The authors propose the Transformer, which uses only attention (including multi-head self-attention) to relate every word in a sentence to every other word, plus positional encodings to retain word order. On WMT 2014 English-to-German it reaches 28.4 BLEU, more than 2 BLEU above the previous best results including ensembles. On English-to-French it reaches 41.8 BLEU for a single model, with a fraction of the training cost of earlier systems. Ablation experiments show which design choices matter, and the model also performs well on English constituency parsing, suggesting it generalizes beyond translation.",
+    "research_question": "Can a sequence transduction model that relies solely on attention, without recurrent or convolutional layers, achieve better quality and be much more parallelizable and efficient to train than existing recurrent and convolutional models?",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   }
+  ],
+  "claims": [
+   {
+    "id": "03124ac3-343d-4c86-a30c-3d8135fa3249",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "The Transformer outperforms the BerkeleyParser even when trained only on the 40K-sentence WSJ training set, unlike RNN seq2seq models.",
+    "kind": "reported-result",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "30bf3fd6-c4e5-4648-a762-24d84774b2d9",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "Only a small number of experiments were performed to select dropout, learning rates and beam size for parsing, with other parameters unchanged from the English-to-German base model.",
+    "kind": "method",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "35b6224b-79ad-4ded-b49f-b61829248fd1",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "Regularization includes residual dropout (Pdrop=0.1 for base) and label smoothing of 0.1, which hurts perplexity but improves accuracy and BLEU.",
+    "kind": "method",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "4541f82e-a443-408b-a78d-5af8840d5d82",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "Base models used checkpoint averaging of the last 5 checkpoints, big models of the last 20, with beam search of size 4 and length penalty 0.6.",
+    "kind": "method",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "4c23290f-b136-4c2c-a136-e11f753cbdd2",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "Single-head attention is 0.9 BLEU worse than the best setting, and quality also drops with too many heads.",
+    "kind": "reported-result",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "7d604aa7-6e80-4c2e-a147-8ef7971c0451",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "A 4-layer Transformer with little task-specific tuning performs surprisingly well on constituency parsing, better than all previously reported models except the Recurrent Neural Network Grammar.",
+    "kind": "reported-result",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "8073c8d5-ce72-49a0-8312-c273f84c83a5",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "Table 2 shows the Transformer achieves better BLEU than previous state-of-the-art models at a fraction of the training cost.",
+    "kind": "reported-result",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "80e72f28-875d-482f-afa2-ef6892a3d987",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "Constituency parsing is challenging because outputs have strong structural constraints and are significantly longer than input, and RNN seq2seq models had not attained state-of-the-art in small-data regimes.",
+    "kind": "background",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "a91f98e7-8324-4ff2-8e83-8a1a9cefb84d",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "The authors plan to extend the Transformer to other modalities, investigate local restricted attention for large inputs, and make generation less sequential.",
+    "kind": "limitation",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "b48b38fc-91f7-4544-815e-54a0f760902f",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "Reducing the attention key size dk hurts model quality, which the authors interpret as suggesting a more sophisticated compatibility function than dot product may be beneficial.",
+    "kind": "author-interpretation",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "c0b12d69-a302-4a94-8b55-5823981c78fd",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "Bigger models are better and dropout is very helpful in avoiding over-fitting.",
+    "kind": "reported-result",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "d0317e86-7f7f-47fd-9ac5-82b307345f12",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "Training used Adam with a learning rate schedule that increases linearly for 4000 warmup steps then decays proportionally to the inverse square root of step number.",
+    "kind": "method",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "0f44ac5d-6ef4-41f7-af27-bd296c0a7b42",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "The Transformer is more parallelizable and requires significantly less time to train than recurrent or convolutional models.",
+    "kind": "reported-result",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "10077d79-d390-4f37-b088-be6d05e9940b",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "Multi-head attention allows the model to jointly attend to information from different representation subspaces at different positions, which a single head's averaging inhibits.",
+    "kind": "author-interpretation",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "1b92e03c-c8cd-4ce4-9cb6-4eec05696875",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "Restricting self-attention to a neighborhood of size r would increase maximum path length to O(n/r); the authors leave this for future work.",
+    "kind": "limitation",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "1db9af45-7637-457a-8021-5a67c56c757e",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "Dot-product attention is much faster and more space-efficient in practice than additive attention, though theoretical complexity is similar.",
+    "kind": "background",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "2127bc28-b70b-4c68-903b-9b9cc61bd022",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "Multi-head attention linearly projects queries, keys and values h times, applies attention in parallel, and concatenates and projects the outputs; h=8 with dk=dv=64 is used, keeping computational cost similar to single-head attention.",
+    "kind": "method",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "3971c391-6a6a-4485-8e26-8e6ca18c3a15",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "The decoder adds a third sub-layer attending over the encoder output and masks self-attention to prevent positions from attending to subsequent positions, preserving auto-regressive predictions.",
+    "kind": "method",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "3dd25d5c-3e88-45ba-acbd-909de21b0687",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "Self-attention layers are faster than recurrent layers when sequence length n is smaller than representation dimensionality d, and connect all positions with a constant number of sequential operations.",
+    "kind": "background",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "5b727c89-1a90-4594-b3e2-aec7aff3b067",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "Learned positional embeddings produced nearly identical results to sinusoidal encodings.",
+    "kind": "reported-result",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "67215443-dd17-4743-832b-e2d92689eb42",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "The model injects position information using sinusoidal positional encodings added to input embeddings.",
+    "kind": "method",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "6d8f836d-d321-4ff2-9e95-b1612653bb3e",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "Models were trained on WMT 2014 English-German (about 4.5M sentence pairs, ~37000 BPE vocabulary) and English-French (36M sentences, 32000 word-piece vocabulary).",
+    "kind": "method",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "72a9fd4b-73e0-490e-9a7c-3e412af5b079",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "The Transformer generalizes to English constituency parsing with both large and limited training data.",
+    "kind": "reported-result",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "76f92a24-cf59-47ae-9a0f-fd60847c6b6f",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "The encoder and decoder each consist of a stack of N=6 identical layers; encoder layers have a multi-head self-attention sub-layer and a position-wise feed-forward sub-layer with residual connections and layer normalization, with dmodel=512.",
+    "kind": "method",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "77dd72bf-6475-45d0-ae7e-fc20f494d854",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "In ConvS2S and ByteNet, the number of operations to relate distant positions grows linearly and logarithmically respectively, making long-distance dependencies harder to learn; the Transformer reduces this to a constant number of operations.",
+    "kind": "background",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "7d22d98d-5a33-45a4-b51b-5edd5eb8fded",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "Self-attention could yield more interpretable models; individual attention heads clearly learn different tasks and many appear related to syntactic and semantic structure.",
+    "kind": "author-interpretation",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "8ae00268-e017-42b0-afe7-4946fdcd53df",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "The Transformer uses multi-head attention in three ways: encoder-decoder attention, encoder self-attention, and masked decoder self-attention.",
+    "kind": "method",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "8eaa9523-5832-4c18-aac9-4f29c437ae16",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "Base models were trained for 100,000 steps (12 hours) and big models for 300,000 steps (3.5 days) on one machine with 8 P100 GPUs.",
+    "kind": "method",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "8f09e290-f871-4fed-b083-5197b9f233ef",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "The Transformer achieves 28.4 BLEU on WMT 2014 English-to-German, improving over the existing best results including ensembles by over 2 BLEU.",
+    "kind": "reported-result",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "92b895d2-abcb-455b-a039-db42c59b335a",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "The Transformer establishes a new single-model state-of-the-art BLEU of 41.8 on WMT 2014 English-to-French after 3.5 days on eight GPUs, a small fraction of the training cost of the best literature models.",
+    "kind": "reported-result",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "9f36dd6c-6878-4015-a3d4-f4d4ac96a302",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "The model shares the same weight matrix between the two embedding layers and the pre-softmax linear transformation.",
+    "kind": "method",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "a3252d4e-e352-4f7c-9e59-aed99afdc9a6",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "Scaled dot-product attention computes dot products of queries with keys, divides by sqrt(dk), and applies softmax to obtain weights on the values.",
+    "kind": "method",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "aa8cebc0-401c-4bf4-a75b-9dccccca2d66",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "The authors hypothesized sinusoidal encodings would let the model easily learn to attend by relative positions, and chose them because they may allow extrapolation to longer sequences.",
+    "kind": "author-interpretation",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "b246133c-611a-4455-a78a-27a0040fb4a0",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "Even the Transformer base model surpasses all previously published models and ensembles on English-to-German at a fraction of the training cost.",
+    "kind": "reported-result",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "c59941a8-970a-4abf-9e0e-0b7f67b60254",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "The text in Section 6.1 reports a BLEU of 41.0 for the big model on English-to-French, outperforming all previously published single models at less than 1/4 the training cost of the previous state-of-the-art.",
+    "kind": "reported-result",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "d16638c4-661a-4aa7-86a9-2f91846a71a9",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "The authors suspect that for large dk dot products grow large, pushing softmax into regions with extremely small gradients, motivating scaling by 1/sqrt(dk).",
+    "kind": "author-interpretation",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "e47f24c4-f3f6-4540-af61-1fb98bb59edd",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "The sequential nature of recurrent models precludes parallelization within training examples, which becomes critical at longer sequence lengths.",
+    "kind": "background",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "ea2fc2eb-c81e-4d2d-a1e5-706f23ad08a0",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "The Transformer is a new network architecture based solely on attention mechanisms, dispensing with recurrence and convolutions entirely.",
+    "kind": "method",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   },
+   {
+    "id": "eef3eec2-d892-40a0-a018-9353365c9d13",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "statement": "The authors claim, to the best of their knowledge, that the Transformer is the first transduction model relying entirely on self-attention without sequence-aligned RNNs or convolution.",
+    "kind": "author-interpretation",
+    "verification_status": "verified",
+    "created_at": "2026-10-01T17:08:07.487215+00:00"
+   }
+  ],
+  "metrics": [
+   {
+    "id": "e8ed3f17-cfc5-446b-8065-985f548a3e8a",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "BLEU on WMT 2014 English-to-German (Transformer big)",
+    "value": "28.4",
+    "display_value": "28.4 BLEU",
+    "unit": "BLEU",
+    "context": "WMT 2014 English-to-German translation task",
+    "source_page": 1,
+    "source_excerpt": "Our model achieves 28.4 BLEU on the WMT 2014 English-\nto-German translation task"
+   },
+   {
+    "id": "bec9e0b9-5ad2-46fa-a615-95256815ad42",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "BLEU on WMT 2014 English-to-French (Transformer big)",
+    "value": "41.8",
+    "display_value": "41.8 BLEU",
+    "unit": "BLEU",
+    "context": "single-model state-of-the-art, WMT 2014 English-to-French, after 3.5 days on eight GPUs",
+    "source_page": 1,
+    "source_excerpt": "our model establishes a new single-model state-of-the-art BLEU score of 41.8 after\ntraining for 3.5 days on eight GPUs"
+   },
+   {
+    "id": "1d81c6e7-5aef-4ed5-83ae-405608d5a46a",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Training time for big model",
+    "value": "3.5",
+    "display_value": "3.5 days",
+    "unit": "days",
+    "context": "big model, eight P100 GPUs",
+    "source_page": 1,
+    "source_excerpt": "training for 3.5 days on eight GPUs"
+   },
+   {
+    "id": "60049f5b-43a2-4e7d-93e0-2603ca7f4674",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Training time to reach new state of the art",
+    "value": "twelve hours",
+    "display_value": "twelve hours",
+    "unit": "hours",
+    "context": "on eight P100 GPUs",
+    "source_page": 2,
+    "source_excerpt": "can reach a new state of the art in\ntranslation quality after being trained for as little as twelve hours on eight P100 GPUs."
+   },
+   {
+    "id": "39f1beaf-1585-4638-b054-d245ebc140cc",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Number of encoder layers",
+    "value": "6",
+    "display_value": "6 layers",
+    "unit": "layers",
+    "context": "Encoder stack N",
+    "source_page": 3,
+    "source_excerpt": "The encoder is composed of a stack of N = 6 identical layers."
+   },
+   {
+    "id": "8aea0b7e-8c92-44d1-93c0-060740d12b1a",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Model dimension dmodel",
+    "value": "512",
+    "display_value": "512",
+    "unit": null,
+    "context": "base model embedding and sub-layer output dimension",
+    "source_page": 3,
+    "source_excerpt": "produce outputs of dimension dmodel = 512."
+   },
+   {
+    "id": "691a3ced-513d-472a-8cdd-014c2f12c2b5",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Number of attention heads",
+    "value": "8",
+    "display_value": "8 heads",
+    "unit": "heads",
+    "context": "base model",
+    "source_page": 5,
+    "source_excerpt": "In this work we employ h = 8 parallel attention layers, or heads."
+   },
+   {
+    "id": "fcda80d8-92c8-4156-9b2f-068ec4f79324",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Key/value dimension per head",
+    "value": "64",
+    "display_value": "64",
+    "unit": null,
+    "context": "dk = dv = dmodel/h",
+    "source_page": 5,
+    "source_excerpt": "dk = dv = dmodel/h = 64"
+   },
+   {
+    "id": "e2ac991f-58e5-49b7-9481-356c7cd3069a",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Feed-forward inner-layer dimensionality dff",
+    "value": "2048",
+    "display_value": "2048",
+    "unit": null,
+    "context": "base model",
+    "source_page": 5,
+    "source_excerpt": "the inner-layer has dimensionality\ndff = 2048."
+   },
+   {
+    "id": "87962804-3027-4918-b151-93d4197467f0",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "WMT 2014 English-German training dataset size",
+    "value": "4.5 million",
+    "display_value": "about 4.5 million sentence pairs",
+    "unit": "sentence pairs",
+    "context": "English-German training data",
+    "source_page": 7,
+    "source_excerpt": "consisting of about 4.5 million\nsentence pairs"
+   },
+   {
+    "id": "dda4ab41-9d33-4a40-a65a-cc2d3f568a0a",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Shared source-target vocabulary size (EN-DE)",
+    "value": "37000",
+    "display_value": "about 37000 tokens",
+    "unit": "tokens",
+    "context": "byte-pair encoding",
+    "source_page": 7,
+    "source_excerpt": "which has a shared source-\ntarget vocabulary of about 37000 tokens"
+   },
+   {
+    "id": "265a3fc1-04cf-4dcd-bf7a-ff954aa8c80d",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "WMT 2014 English-French dataset size",
+    "value": "36M",
+    "display_value": "36M sentences",
+    "unit": "sentences",
+    "context": "English-French training data",
+    "source_page": 7,
+    "source_excerpt": "consisting of 36M sentences"
+   },
+   {
+    "id": "03c2efe1-792b-4f91-9bc3-d482bb5c0ee6",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Word-piece vocabulary size (EN-FR)",
+    "value": "32000",
+    "display_value": "32000 word-piece vocabulary",
+    "unit": "tokens",
+    "context": "English-French",
+    "source_page": 7,
+    "source_excerpt": "split tokens into a 32000 word-piece\nvocabulary [38]"
+   },
+   {
+    "id": "6b47a2ec-bb48-408f-880b-47f78794ed04",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Tokens per training batch",
+    "value": "25000",
+    "display_value": "approximately 25000 source tokens and 25000 target tokens",
+    "unit": "tokens",
+    "context": "per batch",
+    "source_page": 7,
+    "source_excerpt": "approximately 25000 source tokens and 25000\ntarget tokens"
+   },
+   {
+    "id": "4b4f1b0a-bcd8-4720-aa6e-b5bf0d671e44",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Training step time for base model",
+    "value": "0.4",
+    "display_value": "0.4 seconds",
+    "unit": "seconds",
+    "context": "base models, 8 P100 GPUs",
+    "source_page": 7,
+    "source_excerpt": "each training step took about 0.4 seconds"
+   },
+   {
+    "id": "db18f032-fec8-473f-89a9-922ab137411c",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Base model training steps",
+    "value": "100,000",
+    "display_value": "100,000 steps (12 hours)",
+    "unit": "steps",
+    "context": "base models",
+    "source_page": 7,
+    "source_excerpt": "We\ntrained the base models for a total of 100,000 steps or 12 hours."
+   },
+   {
+    "id": "a05548e2-1d2e-48ec-9440-f6b982aa4619",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Step time for big models",
+    "value": "1.0",
+    "display_value": "1.0 seconds",
+    "unit": "seconds",
+    "context": "big models",
+    "source_page": 7,
+    "source_excerpt": "step time was 1.0 seconds"
+   },
+   {
+    "id": "ca142d48-1dcc-41b7-a388-aec0317890cb",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Big model training steps",
+    "value": "300,000",
+    "display_value": "300,000 steps (3.5 days)",
+    "unit": "steps",
+    "context": "big models",
+    "source_page": 7,
+    "source_excerpt": "The big models were trained for 300,000 steps\n(3.5 days)."
+   },
+   {
+    "id": "bb30bf54-7aa4-42a9-b46c-f1954a81144a",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Warmup steps",
+    "value": "4000",
+    "display_value": "4000",
+    "unit": "steps",
+    "context": "learning rate schedule",
+    "source_page": 7,
+    "source_excerpt": "We used\nwarmup_steps = 4000."
+   },
+   {
+    "id": "c9390245-8c44-4a04-88ed-9d6691e09a86",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "BLEU EN-DE ByteNet",
+    "value": "23.75",
+    "display_value": "23.75 BLEU",
+    "unit": "BLEU",
+    "context": "Table 2, ByteNet [18]",
+    "source_page": 8,
+    "source_excerpt": "ByteNet [18]\n23.75"
+   },
+   {
+    "id": "a28de7e9-bd5e-44d5-8b22-f52f7b4ca974",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "BLEU EN-DE Transformer (base model)",
+    "value": "27.3",
+    "display_value": "27.3 BLEU",
+    "unit": "BLEU",
+    "context": "Table 2, EN-DE",
+    "source_page": 8,
+    "source_excerpt": "Transformer (base model)\n27.3\n38.1\n3.3 · 1018"
+   },
+   {
+    "id": "2afa5e3e-5088-4c38-a360-6996ca1f479f",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "BLEU EN-FR Transformer (base model)",
+    "value": "38.1",
+    "display_value": "38.1 BLEU",
+    "unit": "BLEU",
+    "context": "Table 2, EN-FR",
+    "source_page": 8,
+    "source_excerpt": "Transformer (base model)\n27.3\n38.1\n3.3 · 1018"
+   },
+   {
+    "id": "620421b3-630e-47be-969b-fca505341ca4",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Training cost Transformer (base model)",
+    "value": "3.3 · 1018",
+    "display_value": "3.3 · 10^18 FLOPs",
+    "unit": "FLOPs",
+    "context": "Table 2",
+    "source_page": 8,
+    "source_excerpt": "Transformer (base model)\n27.3\n38.1\n3.3 · 1018"
+   },
+   {
+    "id": "d20429fe-e980-47cb-9335-a4e86c7d7373",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "BLEU EN-DE Transformer (big)",
+    "value": "28.4",
+    "display_value": "28.4 BLEU",
+    "unit": "BLEU",
+    "context": "Table 2, EN-DE",
+    "source_page": 8,
+    "source_excerpt": "Transformer (big)\n28.4\n41.8\n2.3 · 1019"
+   },
+   {
+    "id": "0af45e0a-d0b6-4253-a83a-905e4f350d27",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Training cost Transformer (big)",
+    "value": "2.3 · 1019",
+    "display_value": "2.3 · 10^19 FLOPs",
+    "unit": "FLOPs",
+    "context": "Table 2",
+    "source_page": 8,
+    "source_excerpt": "Transformer (big)\n28.4\n41.8\n2.3 · 1019"
+   },
+   {
+    "id": "76ad4a13-f1af-49e8-964f-e5e8c13dd7b9",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "BLEU EN-DE ConvS2S Ensemble",
+    "value": "26.36",
+    "display_value": "26.36 BLEU",
+    "unit": "BLEU",
+    "context": "Table 2, best previous ensemble EN-DE",
+    "source_page": 8,
+    "source_excerpt": "ConvS2S Ensemble [9]\n26.36\n41.29\n7.7 · 1019"
+   },
+   {
+    "id": "41a7a0b7-7a68-45b9-a97d-f18fa3803b3c",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "BLEU EN-FR ConvS2S Ensemble",
+    "value": "41.29",
+    "display_value": "41.29 BLEU",
+    "unit": "BLEU",
+    "context": "Table 2",
+    "source_page": 8,
+    "source_excerpt": "ConvS2S Ensemble [9]\n26.36\n41.29\n7.7 · 1019"
+   },
+   {
+    "id": "b90bb8e9-1c46-4435-8c92-0ac1d7059867",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Dropout rate Pdrop (base)",
+    "value": "0.1",
+    "display_value": "0.1",
+    "unit": null,
+    "context": "base model residual dropout",
+    "source_page": 8,
+    "source_excerpt": "For the base model, we use a rate of\nPdrop = 0.1."
+   },
+   {
+    "id": "383821c7-0fdc-46ef-998b-86c8fbcf4610",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Label smoothing value",
+    "value": "0.1",
+    "display_value": "0.1",
+    "unit": null,
+    "context": "training",
+    "source_page": 8,
+    "source_excerpt": "we employed label smoothing of value ϵls = 0.1 [36]"
+   },
+   {
+    "id": "53f45409-46af-4024-935e-55f9cd04e678",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Improvement over previous best on EN-DE",
+    "value": "2.0",
+    "display_value": "more than 2.0 BLEU",
+    "unit": "BLEU",
+    "context": "Transformer (big) vs. best previous models including ensembles",
+    "source_page": 8,
+    "source_excerpt": "outperforms the best previously reported models (including ensembles) by more than 2.0\nBLEU, establishing a new state-of-the-art BLEU score of 28.4."
+   },
+   {
+    "id": "889b8cef-c600-4a41-bc8b-f8f82de06e56",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "BLEU on WMT 2014 English-to-French (text)",
+    "value": "41.0",
+    "display_value": "41.0 BLEU",
+    "unit": "BLEU",
+    "context": "big model, as stated in Section 6.1 text",
+    "source_page": 8,
+    "source_excerpt": "our big model achieves a BLEU score of 41.0"
+   },
+   {
+    "id": "57ee78be-9c2c-4d4f-8fd4-60444cc916d6",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Training time EN-DE big",
+    "value": "3.5",
+    "display_value": "3.5 days on 8 P100 GPUs",
+    "unit": "days",
+    "context": "Transformer (big) EN-DE",
+    "source_page": 8,
+    "source_excerpt": "Training took 3.5 days on 8 P100 GPUs."
+   },
+   {
+    "id": "e598057b-aa09-42e9-a572-ff3dbeb8d2a6",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Dropout rate for EN-FR big model",
+    "value": "0.1",
+    "display_value": "0.1",
+    "unit": null,
+    "context": "instead of 0.3",
+    "source_page": 8,
+    "source_excerpt": "used\ndropout rate Pdrop = 0.1, instead of 0.3."
+   },
+   {
+    "id": "bd22a774-564e-4ba0-940f-fd2f506b82ec",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Checkpoints averaged (base)",
+    "value": "5",
+    "display_value": "last 5 checkpoints",
+    "unit": "checkpoints",
+    "context": "base models, written at 10-minute intervals",
+    "source_page": 8,
+    "source_excerpt": "For the base models, we used a single model obtained by averaging the last 5 checkpoints"
+   },
+   {
+    "id": "007f4591-f644-4069-9f46-9e27f187c2da",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Checkpoints averaged (big)",
+    "value": "20",
+    "display_value": "last 20 checkpoints",
+    "unit": "checkpoints",
+    "context": "big models",
+    "source_page": 8,
+    "source_excerpt": "For the big models, we averaged the last 20 checkpoints."
+   },
+   {
+    "id": "d6d13926-4f07-43b0-8a7d-8d8fdd72127c",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Beam size",
+    "value": "4",
+    "display_value": "4",
+    "unit": null,
+    "context": "translation, with length penalty α = 0.6",
+    "source_page": 8,
+    "source_excerpt": "We\nused beam search with a beam size of 4 and length penalty α = 0.6 [38]."
+   },
+   {
+    "id": "30e8ac38-26d0-4f41-8b69-09415e5cc22d",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Dev perplexity base model",
+    "value": "4.92",
+    "display_value": "4.92",
+    "unit": null,
+    "context": "Table 3 base, newstest2013",
+    "source_page": 9,
+    "source_excerpt": "base\n6\n512\n2048\n8\n64\n64\n0.1\n0.1\n100K\n4.92\n25.8\n65"
+   },
+   {
+    "id": "932405ea-89ad-4d09-9aaa-42b9a4af260e",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Dev BLEU base model",
+    "value": "25.8",
+    "display_value": "25.8 BLEU",
+    "unit": "BLEU",
+    "context": "Table 3 base, newstest2013",
+    "source_page": 9,
+    "source_excerpt": "base\n6\n512\n2048\n8\n64\n64\n0.1\n0.1\n100K\n4.92\n25.8\n65"
+   },
+   {
+    "id": "0afff310-00bd-4c33-94a4-73a7fdf035a4",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Parameters base model",
+    "value": "65",
+    "display_value": "65 ×10^6 params",
+    "unit": "params (×10^6)",
+    "context": "Table 3 base",
+    "source_page": 9,
+    "source_excerpt": "base\n6\n512\n2048\n8\n64\n64\n0.1\n0.1\n100K\n4.92\n25.8\n65"
+   },
+   {
+    "id": "c62b82c4-c93e-44ca-bb96-9a865b295ad0",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Dev BLEU big model",
+    "value": "26.4",
+    "display_value": "26.4 BLEU",
+    "unit": "BLEU",
+    "context": "Table 3 big, newstest2013",
+    "source_page": 9,
+    "source_excerpt": "big\n6\n1024\n4096\n16\n0.3\n300K\n4.33\n26.4\n213"
+   },
+   {
+    "id": "b1d30be2-5e0c-45ee-af1c-9d835a790566",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Dev perplexity big model",
+    "value": "4.33",
+    "display_value": "4.33",
+    "unit": null,
+    "context": "Table 3 big",
+    "source_page": 9,
+    "source_excerpt": "big\n6\n1024\n4096\n16\n0.3\n300K\n4.33\n26.4\n213"
+   },
+   {
+    "id": "aa59c4bc-0f9a-447d-8c09-b16efd6d56be",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Parameters big model",
+    "value": "213",
+    "display_value": "213 ×10^6 params",
+    "unit": "params (×10^6)",
+    "context": "Table 3 big",
+    "source_page": 9,
+    "source_excerpt": "big\n6\n1024\n4096\n16\n0.3\n300K\n4.33\n26.4\n213"
+   },
+   {
+    "id": "c98c2f2e-472b-43c8-a609-ba941a3246a3",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Dev BLEU with positional embedding instead of sinusoids",
+    "value": "25.7",
+    "display_value": "25.7 BLEU",
+    "unit": "BLEU",
+    "context": "Table 3 row (E)",
+    "source_page": 9,
+    "source_excerpt": "positional embedding instead of sinusoids\n4.92\n25.7"
+   },
+   {
+    "id": "f78c19a9-e4f1-458d-a13b-c2597cd1c253",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Single-head attention BLEU deficit",
+    "value": "0.9",
+    "display_value": "0.9 BLEU worse than best setting",
+    "unit": "BLEU",
+    "context": "Table 3 rows (A)",
+    "source_page": 9,
+    "source_excerpt": "While single-head\nattention is 0.9 BLEU worse than the best setting"
+   },
+   {
+    "id": "bb7af34a-7eeb-4577-8775-377c09a5ed39",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "WSJ training sentences",
+    "value": "40K",
+    "display_value": "about 40K training sentences",
+    "unit": "sentences",
+    "context": "English constituency parsing, WSJ portion of Penn Treebank",
+    "source_page": 9,
+    "source_excerpt": "about 40K training sentences"
+   },
+   {
+    "id": "8c649b0e-5e50-45af-8b32-81e0d1789d0e",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Semi-supervised corpus size",
+    "value": "17M",
+    "display_value": "approximately 17M sentences",
+    "unit": "sentences",
+    "context": "semi-supervised parsing",
+    "source_page": 9,
+    "source_excerpt": "with approximately 17M sentences"
+   },
+   {
+    "id": "b2ea91e6-460b-443a-bf05-754eb7dc138f",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Vocabulary WSJ only",
+    "value": "16K",
+    "display_value": "16K tokens",
+    "unit": "tokens",
+    "context": "parsing, WSJ only",
+    "source_page": 9,
+    "source_excerpt": "We used a vocabulary of 16K tokens for the WSJ only setting"
+   },
+   {
+    "id": "75166769-51e2-4c6b-810b-046f0a9e5127",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Vocabulary semi-supervised",
+    "value": "32K",
+    "display_value": "32K tokens",
+    "unit": "tokens",
+    "context": "parsing, semi-supervised",
+    "source_page": 9,
+    "source_excerpt": "a vocabulary of 32K tokens\nfor the semi-supervised setting"
+   },
+   {
+    "id": "e2103065-5fb0-450d-ae27-237b9ef13a0d",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Parsing transformer layers",
+    "value": "4",
+    "display_value": "4 layers (dmodel = 1024)",
+    "unit": "layers",
+    "context": "English constituency parsing",
+    "source_page": 9,
+    "source_excerpt": "We trained a 4-layer transformer with dmodel = 1024"
+   },
+   {
+    "id": "77faa9d9-eb8b-4752-8862-50eb22a618e0",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "WSJ 23 F1 Transformer WSJ only",
+    "value": "91.3",
+    "display_value": "91.3 F1",
+    "unit": "F1",
+    "context": "Table 4, Transformer (4 layers), WSJ only, discriminative",
+    "source_page": 10,
+    "source_excerpt": "Transformer (4 layers)\nWSJ only, discriminative\n91.3"
+   },
+   {
+    "id": "43e491d8-3517-492d-8af1-8672555190c4",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "WSJ 23 F1 Transformer semi-supervised",
+    "value": "92.7",
+    "display_value": "92.7 F1",
+    "unit": "F1",
+    "context": "Table 4, Transformer (4 layers), semi-supervised",
+    "source_page": 10,
+    "source_excerpt": "Transformer (4 layers)\nsemi-supervised\n92.7"
+   },
+   {
+    "id": "989cf06a-3b30-4d40-b709-8ac254d608c6",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "WSJ 23 F1 Dyer et al. (2016) generative",
+    "value": "93.3",
+    "display_value": "93.3 F1",
+    "unit": "F1",
+    "context": "Table 4",
+    "source_page": 10,
+    "source_excerpt": "Dyer et al. (2016) [8]\ngenerative\n93.3"
+   },
+   {
+    "id": "43adb012-42e8-4fe8-bddc-7b43d4a9ebb0",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "WSJ 23 F1 Vinyals & Kaiser WSJ only",
+    "value": "88.3",
+    "display_value": "88.3 F1",
+    "unit": "F1",
+    "context": "Table 4, WSJ only, discriminative",
+    "source_page": 10,
+    "source_excerpt": "Vinyals & Kaiser el al. (2014) [37]\nWSJ only, discriminative\n88.3"
+   },
+   {
+    "id": "b06eb2ef-e5a6-49bd-ba12-b3bce8ac1e03",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "WSJ 23 F1 Luong et al. multi-task",
+    "value": "93.0",
+    "display_value": "93.0 F1",
+    "unit": "F1",
+    "context": "Table 4",
+    "source_page": 10,
+    "source_excerpt": "Luong et al. (2015) [23]\nmulti-task\n93.0"
+   },
+   {
+    "id": "8c8f01f6-ea1c-431b-806d-859a05cbf1da",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "label": "Beam size for parsing",
+    "value": "21",
+    "display_value": "21",
+    "unit": null,
+    "context": "parsing inference, α = 0.3",
+    "source_page": 10,
+    "source_excerpt": "We used a beam size of 21 and α = 0.3\nfor both WSJ only and the semi-supervised setting."
+   }
+  ],
+  "glossary_terms": [
+   {
+    "id": "7c01769d-0627-4017-885d-f52393b2fba5",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Self-attention",
+    "definition": "An attention mechanism in which a sequence attends to itself: each position is related to every other position in the same sequence to build a representation of that sequence. Also called intra-attention.",
+    "source_page": 2,
+    "source_excerpt": "Self-attention, sometimes called intra-attention is an attention mechanism relating different positions of a single sequence in order to compute a representation of the sequence."
+   },
+   {
+    "id": "02c3de28-9e68-4e61-8e75-34f564bf369c",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Scaled Dot-Product Attention",
+    "definition": "The attention function used in the Transformer. It takes dot products of a query with all keys, divides them by the square root of the key dimension, and applies a softmax to get weights for combining the values.",
+    "source_page": 4,
+    "source_excerpt": "We compute the dot products of the query with all keys, divide each by √dk, and apply a softmax function to obtain the weights on the values."
+   },
+   {
+    "id": "9ee37eed-bd3a-410b-9c97-20c571261dd6",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Multi-Head Attention",
+    "definition": "A mechanism that runs several attention functions in parallel on different learned linear projections of the queries, keys and values. The outputs are concatenated and projected again, letting the model attend to different kinds of information at once.",
+    "source_page": 5,
+    "source_excerpt": "Multi-head attention allows the model to jointly attend to information from different representation subspaces at different positions."
+   },
+   {
+    "id": "8272a802-e24f-488e-a07d-face5432d528",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Transformer",
+    "definition": "The neural network architecture proposed in the paper, which relies entirely on attention mechanisms and dispenses with recurrence and convolutions.",
+    "source_page": 1,
+    "source_excerpt": "We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely."
+   },
+   {
+    "id": "2f8cc648-9bbf-477d-a011-c4f0949a2b5b",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Auto-regressive",
+    "definition": "A property of a model that generates output one element at a time, using the previously generated elements as additional input when producing the next one.",
+    "source_page": 2,
+    "source_excerpt": "At each step the model is auto-regressive [10], consuming the previously generated symbols as additional input when generating the next."
+   },
+   {
+    "id": "10919c03-8538-4a1d-952f-13f540af594c",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Sequence transduction",
+    "definition": "General term (not defined in this paper): The task of converting one sequence into another sequence, such as translating a sentence from one language to another.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "a60a777a-6d1b-4fba-8708-9652f7f5f148",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Encoder-decoder",
+    "definition": "A model structure in which an encoder maps an input sequence to continuous representations and a decoder uses them to generate an output sequence one element at a time.",
+    "source_page": 2,
+    "source_excerpt": "Here, the encoder maps an input sequence of symbol representations (x1, ..., xn) to a sequence of continuous representations z = (z1, ..., zn)."
+   },
+   {
+    "id": "a612ec37-3536-4d41-91a4-db546e6a0867",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Attention function",
+    "definition": "A function that maps a query and a set of key-value pairs to an output vector, computed as a weighted sum of the values with weights determined by how well the query matches each key.",
+    "source_page": 3,
+    "source_excerpt": "An attention function can be described as mapping a query and a set of key-value pairs to an output, where the query, keys, values, and output are all vectors."
+   },
+   {
+    "id": "3aa2ab33-e326-4e2b-8d0d-be0960d7149c",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Additive attention",
+    "definition": "An attention function that computes the compatibility between a query and a key using a feed-forward network with a single hidden layer.",
+    "source_page": 4,
+    "source_excerpt": "Additive attention computes the compatibility function using a feed-forward network with a single hidden layer."
+   },
+   {
+    "id": "dd08a6f0-8f74-45f1-a50e-ff55bf72dbc1",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Residual connection",
+    "definition": "General term (not defined in this paper): A shortcut that adds the input of a layer to its output, helping gradients flow and making deep networks easier to train.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "bc42cce7-8d57-4e68-8ad7-052b819337b6",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Layer normalization",
+    "definition": "General term (not defined in this paper): A technique that normalizes the activations across the features of a layer for each example, stabilizing and speeding up training.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "33c9d2e6-7b60-4c5e-98ce-cf283def9ccd",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Softmax",
+    "definition": "General term (not defined in this paper): A function that converts a vector of real numbers into a probability distribution, with positive values that sum to one.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "b860b02c-5c7d-4d11-93c1-e566cab0e91e",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Masking",
+    "definition": "In the decoder's self-attention, the setting of softmax inputs corresponding to illegal (future-position) connections to −∞, so that predictions for a position depend only on earlier positions.",
+    "source_page": 5,
+    "source_excerpt": "We implement this inside of scaled dot-product attention by masking out (setting to −∞) all values in the input of the softmax which correspond to illegal connections."
+   },
+   {
+    "id": "6c3b7742-d4d9-49c9-8d5e-09adfe41c21c",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Position-wise feed-forward network",
+    "definition": "A fully connected network applied identically and separately to each position, consisting of two linear transformations with a ReLU activation in between.",
+    "source_page": 5,
+    "source_excerpt": "This consists of two linear transformations with a ReLU activation in between."
+   },
+   {
+    "id": "3319b8f5-b8e1-4b77-ac0b-4b24d6b5b397",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "ReLU",
+    "definition": "General term (not defined in this paper): Rectified Linear Unit, an activation function that outputs max(0, x), i.e., zero for negative inputs and the input itself otherwise.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "cb93cb10-cfe3-4054-b0d1-04efeb5075a7",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Embeddings",
+    "definition": "General term (not defined in this paper): Learned vector representations of discrete tokens (such as words or subwords) that let a neural network process them numerically.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "cb159efd-784f-4622-9e38-7b2106cf213d",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Positional encoding",
+    "definition": "Information about the position of tokens that is added to the input embeddings, since the model has no recurrence or convolution to capture order. The paper uses sine and cosine functions of different frequencies.",
+    "source_page": 6,
+    "source_excerpt": "we must inject some information about the relative or absolute position of the tokens in the sequence."
+   },
+   {
+    "id": "faaca5ef-1d8a-47fe-91a6-c9f15a9e4bae",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Recurrent neural network (RNN)",
+    "definition": "General term (not defined in this paper): A neural network that processes a sequence step by step, maintaining a hidden state that is updated from the previous state and the current input.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "536f147c-55ee-4263-a464-ff6c9e6df29f",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Convolutional neural network",
+    "definition": "General term (not defined in this paper): A neural network that applies learned filters (kernels) over local neighborhoods of the input, sharing weights across positions.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "b771b545-eb4d-4aca-bd63-036c78da3afe",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Maximum path length",
+    "definition": "The longest length of the path that forward and backward signals must traverse between any two input and output positions in a network; shorter paths make long-range dependencies easier to learn.",
+    "source_page": 6,
+    "source_excerpt": "Hence we also compare the maximum path length between any two input and output positions in networks composed of the different layer types."
+   },
+   {
+    "id": "eafe735c-09c8-4c38-a760-4ea2959d75ec",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Dilated convolutions",
+    "definition": "General term (not defined in this paper): Convolutions whose kernels skip input positions at regular intervals, enlarging the receptive field without adding parameters.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "8eb2afee-aeb7-404a-8fbc-c388eae75039",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Separable convolutions",
+    "definition": "General term (not defined in this paper): Convolutions factored into a depthwise (per-channel) step followed by a pointwise step, greatly reducing computational cost.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "6e722740-d2cf-496c-acac-2904e6fb8892",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Byte-pair encoding",
+    "definition": "General term (not defined in this paper): A subword tokenization method that iteratively merges the most frequent pairs of symbols to build a vocabulary of subword units.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "e5f71c72-ccc8-4b25-9d9c-4517e7e05716",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Word-piece",
+    "definition": "General term (not defined in this paper): A subword vocabulary approach that splits words into smaller frequently occurring units, so rare words can be represented by pieces.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "9ea70ec1-c7f4-4cd0-b865-21debd5733dd",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "BLEU",
+    "definition": "General term (not defined in this paper): A metric for evaluating machine translation quality by measuring n-gram overlap between a system's output and reference translations; higher is better.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "71f8a853-37ee-486a-a949-72c0bc5d1b32",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Adam optimizer",
+    "definition": "General term (not defined in this paper): A stochastic gradient-based optimization algorithm that adapts learning rates per parameter using estimates of first and second moments of the gradients.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "d540b86a-c66b-41eb-b086-aca1a691d2b0",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Warmup steps",
+    "definition": "The number of initial training steps during which the learning rate is increased linearly, after which it decreases proportionally to the inverse square root of the step number.",
+    "source_page": 7,
+    "source_excerpt": "This corresponds to increasing the learning rate linearly for the first warmup_steps training steps, and decreasing it thereafter proportionally to the inverse square root of the step number."
+   },
+   {
+    "id": "40ae8b25-46bb-433b-bf0e-4d9ffbbb627e",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Residual dropout",
+    "definition": "Dropout applied to the output of each sub-layer before it is added to the sub-layer input and normalized, and also to the sums of embeddings and positional encodings.",
+    "source_page": 8,
+    "source_excerpt": "We apply dropout [33] to the output of each sub-layer, before it is added to the sub-layer input and normalized."
+   },
+   {
+    "id": "f3b80813-4037-4c94-98a3-df23b9d08a22",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Dropout",
+    "definition": "General term (not defined in this paper): A regularization technique that randomly zeroes a fraction of activations during training to reduce overfitting.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "de6af1a0-fa78-485e-a650-4a28ab25290d",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Label smoothing",
+    "definition": "A regularization technique that softens the target labels during training. The paper notes it hurts perplexity because the model learns to be more unsure, but improves accuracy and BLEU.",
+    "source_page": 8,
+    "source_excerpt": "This hurts perplexity, as the model learns to be more unsure, but improves accuracy and BLEU score."
+   },
+   {
+    "id": "c190b6d3-0fa0-442e-ae4f-edd856a27e33",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Perplexity",
+    "definition": "General term (not defined in this paper): A measure of how well a probability model predicts a sample; lower values indicate better predictions.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "8e05bf97-04b3-4081-9c48-e4b8448e269a",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Beam search",
+    "definition": "General term (not defined in this paper): A decoding algorithm that keeps the several most probable partial output sequences (the beam) at each step instead of only the single best.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "eef19685-1df0-47c4-87b6-186e69a7f152",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Length penalty",
+    "definition": "General term (not defined in this paper): An adjustment applied during beam search that modifies sequence scores based on output length, to avoid favoring too-short or too-long outputs.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "3a097236-19d7-4343-8e3f-6a805ce58dd8",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Checkpoint averaging",
+    "definition": "Producing a single model by averaging the parameters of the last several saved checkpoints during training.",
+    "source_page": 8,
+    "source_excerpt": "For the base models, we used a single model obtained by averaging the last 5 checkpoints, which were written at 10-minute intervals."
+   },
+   {
+    "id": "4ac6d8f6-10eb-40c1-a3f7-71fa13162bdb",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Ensemble",
+    "definition": "General term (not defined in this paper): A combination of multiple separately trained models whose predictions are merged to improve performance.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "d1c56d75-571e-4b6c-8e80-cedec70d62ba",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "FLOPs",
+    "definition": "General term (not defined in this paper): Floating point operations, a count of arithmetic operations used as a measure of computational cost.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "470c8f41-642c-44fe-aead-9ef33fa79e81",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Constituency parsing",
+    "definition": "General term (not defined in this paper): The task of analyzing a sentence to produce a tree that groups words into nested phrases (constituents) according to its syntactic structure.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "943c4e87-173b-4502-b7bd-e949ddd0e0d7",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Semi-supervised",
+    "definition": "General term (not defined in this paper): A training setting that uses both labeled data and a larger amount of unlabeled or automatically labeled data.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "abf635c4-a350-4db8-9f8a-403a13e229ee",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "F1",
+    "definition": "General term (not defined in this paper): An evaluation score that is the harmonic mean of precision and recall.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "fc872846-ae67-408a-8cfe-c2f41430c85a",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Anaphora resolution",
+    "definition": "General term (not defined in this paper): The task of determining which earlier word or phrase a pronoun or similar expression (like 'its') refers to.",
+    "source_page": null,
+    "source_excerpt": null
+   },
+   {
+    "id": "207d46d2-2097-4793-99b3-0e5806a0a349",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "term": "Over-fitting",
+    "definition": "General term (not defined in this paper): When a model learns the training data too closely, including noise, and performs worse on unseen data.",
+    "source_page": null,
+    "source_excerpt": null
+   }
+  ],
+  "generated_sections": [
+   {
+    "id": "13fd7ca5-0369-4279-a013-bfc79c77feeb",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "primer",
+    "order": 2,
+    "title": "Self-attention versus recurrent layers",
+    "content": "The paper compares layer types by sequential operations and speed. A self-attention layer connects all positions with a constant number of sequentially executed operations, whereas a recurrent layer requires O(n) sequential operations. The paper also states that self-attention layers are faster than recurrent layers when the sequence length n is smaller than the representation dimensionality d, which it says is most often the case with sentence representations.",
+    "claim_ids": [
+     "3dd25d5c-3e88-45ba-acbd-909de21b0687"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": null
+   },
+   {
+    "id": "b88c04b1-28a1-4c1a-8317-2619c236f56b",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "report",
+    "order": 0,
+    "title": "Overview and Motivation",
+    "content": "The paper proposes the Transformer, a network architecture based solely on attention mechanisms that dispenses with recurrence and convolutions entirely. The motivation comes from the limits of recurrent models: their inherently sequential nature precludes parallelization within training examples, which becomes critical at longer sequence lengths because memory constraints limit batching across examples. Convolutional alternatives such as ConvS2S and ByteNet need a number of operations to relate distant positions that grows linearly and logarithmically with distance respectively, making long-range dependencies harder to learn. The Transformer reduces this to a constant number of operations, at the cost of reduced effective resolution from averaging attention-weighted positions. The authors state that, to the best of their knowledge, it is the first transduction model relying entirely on self-attention without sequence-aligned RNNs or convolution.",
+    "claim_ids": [
+     "ea2fc2eb-c81e-4d2d-a1e5-706f23ad08a0",
+     "e47f24c4-f3f6-4540-af61-1fb98bb59edd",
+     "77dd72bf-6475-45d0-ae7e-fc20f494d854",
+     "eef3eec2-d892-40a0-a018-9353365c9d13"
+    ],
+    "created_at": "2026-10-01T17:09:37.975776+00:00",
+    "data": null
+   },
+   {
+    "id": "6a6abd04-56ea-43f8-ac60-0b6f6da5d8f4",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "report",
+    "order": 1,
+    "title": "Architecture: Encoder, Decoder and Attention",
+    "content": "Both the encoder and decoder are stacks of N=6 identical layers with dmodel=512. Encoder layers combine a multi-head self-attention sub-layer and a position-wise feed-forward sub-layer, each wrapped with residual connections and layer normalization. The decoder adds a third sub-layer that attends over the encoder output and masks its self-attention so positions cannot attend to subsequent positions, preserving auto-regressive prediction. Multi-head attention is used in three ways: encoder-decoder attention, encoder self-attention, and masked decoder self-attention. The model also shares one weight matrix between the two embedding layers and the pre-softmax linear transformation.",
+    "claim_ids": [
+     "76f92a24-cf59-47ae-9a0f-fd60847c6b6f",
+     "3971c391-6a6a-4485-8e26-8e6ca18c3a15",
+     "8ae00268-e017-42b0-afe7-4946fdcd53df",
+     "9f36dd6c-6878-4015-a3d4-f4d4ac96a302"
+    ],
+    "created_at": "2026-10-01T17:09:37.975776+00:00",
+    "data": null
+   },
+   {
+    "id": "8556ea07-f758-4706-8fb6-52da803b7a04",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "report",
+    "order": 2,
+    "title": "Scaled Dot-Product and Multi-Head Attention",
+    "content": "The core operation is scaled dot-product attention: dot products of the query with all keys are divided by sqrt(dk), and a softmax gives the weights on the values. Dot-product attention is much faster and more space-efficient in practice than additive attention despite similar theoretical complexity. The authors suspect that for large dk the dot products grow large and push the softmax into regions with extremely small gradients, which motivates the scaling. Multi-head attention linearly projects queries, keys and values h times, applies attention in parallel, then concatenates and projects the outputs. With h=8 and dk=dv=64, computational cost remains similar to single-head attention at full dimensionality. The authors interpret multi-head attention as letting the model jointly attend to information from different representation subspaces at different positions, which averaging in a single head inhibits.",
+    "claim_ids": [
+     "a3252d4e-e352-4f7c-9e59-aed99afdc9a6",
+     "1db9af45-7637-457a-8021-5a67c56c757e",
+     "d16638c4-661a-4aa7-86a9-2f91846a71a9",
+     "2127bc28-b70b-4c68-903b-9b9cc61bd022",
+     "10077d79-d390-4f37-b088-be6d05e9940b"
+    ],
+    "created_at": "2026-10-01T17:09:37.975776+00:00",
+    "data": null
+   },
+   {
+    "id": "7d3b4dad-ca1e-4ec7-be1c-8b96134b13c8",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "report",
+    "order": 3,
+    "title": "Positional Encoding and Why Self-Attention",
+    "content": "Because the model has no recurrence or convolution, position information is injected via sinusoidal positional encodings added to input embeddings. The authors hypothesized this would let the model easily learn to attend by relative positions and chose it because it may allow extrapolation to longer sequences. Learned positional embeddings produced nearly identical results. On the efficiency side, a self-attention layer connects all positions with a constant number of sequential operations whereas a recurrent layer needs O(n), and self-attention is faster than recurrent layers when sequence length n is smaller than representation dimensionality d. The authors also suggest self-attention could yield more interpretable models, noting that individual heads clearly learn different tasks and many seem related to syntactic and semantic structure.",
+    "claim_ids": [
+     "67215443-dd17-4743-832b-e2d92689eb42",
+     "aa8cebc0-401c-4bf4-a75b-9dccccca2d66",
+     "5b727c89-1a90-4594-b3e2-aec7aff3b067",
+     "3dd25d5c-3e88-45ba-acbd-909de21b0687",
+     "7d22d98d-5a33-45a4-b51b-5edd5eb8fded"
+    ],
+    "created_at": "2026-10-01T17:09:37.975776+00:00",
+    "data": null
+   },
+   {
+    "id": "d3e6024d-6540-4912-b222-3974011c00fb",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "report",
+    "order": 4,
+    "title": "Training Setup",
+    "content": "Models were trained on WMT 2014 English-German (about 4.5M sentence pairs, ~37000 BPE vocabulary) and English-French (36M sentences, 32000 word-piece vocabulary). Training ran on one machine with 8 P100 GPUs: base models for 100,000 steps (12 hours) and big models for 300,000 steps (3.5 days). Optimization used Adam with a learning rate that increases linearly for 4000 warmup steps and then decays proportionally to the inverse square root of the step number. Regularization includes residual dropout (0.1 for the base model) and label smoothing of 0.1, which hurts perplexity but improves accuracy and BLEU. At inference, base models average the last 5 checkpoints and big models the last 20, using beam search of size 4 and length penalty 0.6.",
+    "claim_ids": [
+     "6d8f836d-d321-4ff2-9e95-b1612653bb3e",
+     "8eaa9523-5832-4c18-aac9-4f29c437ae16",
+     "d0317e86-7f7f-47fd-9ac5-82b307345f12",
+     "35b6224b-79ad-4ded-b49f-b61829248fd1",
+     "4541f82e-a443-408b-a78d-5af8840d5d82"
+    ],
+    "created_at": "2026-10-01T17:09:37.975776+00:00",
+    "data": null
+   },
+   {
+    "id": "fab6d141-5a41-4e2d-8c25-99486f11d090",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "report",
+    "order": 5,
+    "title": "Machine Translation Results",
+    "content": "On WMT 2014 English-to-German the Transformer reaches 28.4 BLEU, improving over the existing best results, including ensembles, by over 2 BLEU. Even the base model surpasses all previously published models and ensembles at a fraction of the training cost. On English-to-French, the paper reports a new single-model state-of-the-art BLEU of 41.8 after 3.5 days on eight GPUs, a small fraction of the training cost of the best literature models. The text of Section 6.1 separately reports 41.0 BLEU for the big model, outperforming all previously published single models at less than 1/4 the training cost of the previous state-of-the-art. Overall, the Transformer achieves better BLEU than previous state-of-the-art models at a fraction of the training cost, and it is more parallelizable and significantly faster to train than recurrent or convolutional models.",
+    "claim_ids": [
+     "8f09e290-f871-4fed-b083-5197b9f233ef",
+     "b246133c-611a-4455-a78a-27a0040fb4a0",
+     "92b895d2-abcb-455b-a039-db42c59b335a",
+     "c59941a8-970a-4abf-9e0e-0b7f67b60254",
+     "8073c8d5-ce72-49a0-8312-c273f84c83a5",
+     "0f44ac5d-6ef4-41f7-af27-bd296c0a7b42"
+    ],
+    "created_at": "2026-10-01T17:09:37.975776+00:00",
+    "data": null
+   },
+   {
+    "id": "e8826050-0687-4f6d-b34d-b1f52b42c483",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "report",
+    "order": 6,
+    "title": "Ablation Findings",
+    "content": "Ablation experiments identify which design choices matter. Single-head attention is 0.9 BLEU worse than the best setting, and quality also drops with too many heads. Reducing the attention key size dk hurts quality, which the authors read as suggesting that determining compatibility is not easy and that a more sophisticated compatibility function than dot product may help. Bigger models are better, and dropout is very helpful in avoiding over-fitting. Swapping sinusoidal encodings for learned positional embeddings made almost no difference.",
+    "claim_ids": [
+     "4c23290f-b136-4c2c-a136-e11f753cbdd2",
+     "b48b38fc-91f7-4544-815e-54a0f760902f",
+     "c0b12d69-a302-4a94-8b55-5823981c78fd",
+     "5b727c89-1a90-4594-b3e2-aec7aff3b067"
+    ],
+    "created_at": "2026-10-01T17:09:37.975776+00:00",
+    "data": null
+   },
+   {
+    "id": "2d53fdb2-e100-411c-bfc3-21de8dcbfb63",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "report",
+    "order": 7,
+    "title": "Generalization to Constituency Parsing",
+    "content": "To test generalization, the authors apply the Transformer to English constituency parsing, a task that is challenging because outputs have strong structural constraints and are significantly longer than the input, and because RNN seq2seq models had not reached state-of-the-art in small-data regimes. Only a small number of experiments were run to select dropout, learning rates and beam size, with other parameters unchanged from the English-to-German base model. Despite little task-specific tuning, a 4-layer Transformer performs surprisingly well, better than all previously reported models except the Recurrent Neural Network Grammar. Unlike RNN seq2seq models, it outperforms the BerkeleyParser even when trained only on the 40K-sentence WSJ set, supporting the claim that it generalizes with both large and limited training data.",
+    "claim_ids": [
+     "80e72f28-875d-482f-afa2-ef6892a3d987",
+     "30bf3fd6-c4e5-4648-a762-24d84774b2d9",
+     "7d604aa7-6e80-4c2e-a147-8ef7971c0451",
+     "03124ac3-343d-4c86-a30c-3d8135fa3249",
+     "72a9fd4b-73e0-490e-9a7c-3e412af5b079"
+    ],
+    "created_at": "2026-10-01T17:09:37.975776+00:00",
+    "data": null
+   },
+   {
+    "id": "c5d147f1-7bc3-4037-8fb7-5d0de576405b",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "report",
+    "order": 8,
+    "title": "Limitations and Future Directions",
+    "content": "The authors acknowledge directions left open. They plan to extend the Transformer to input and output modalities other than text and to investigate local, restricted attention to efficiently handle large inputs and outputs such as images, audio and video, and to make generation less sequential. Restricting self-attention to a neighborhood of size r would increase the maximum path length to O(n/r), an approach they leave for future work. The trade-off of reduced effective resolution from averaging attention-weighted positions is also noted.",
+    "claim_ids": [
+     "a91f98e7-8324-4ff2-8e83-8a1a9cefb84d",
+     "1b92e03c-c8cd-4ce4-9cb6-4eec05696875",
+     "77dd72bf-6475-45d0-ae7e-fc20f494d854"
+    ],
+    "created_at": "2026-10-01T17:09:37.975776+00:00",
+    "data": null
+   },
+   {
+    "id": "2a4899d3-3fb8-41c8-ba46-6743dd91a3d1",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "story",
+    "order": 0,
+    "title": "Reading one word at a time is slow",
+    "content": "Earlier translation systems relied on recurrent or convolutional neural networks. Recurrent models work through a sentence step by step, and this sequential nature prevents parallelization within a training example. The problem gets worse for longer sentences, because memory limits how many examples can be batched together. The authors asked a bold question: can a model built only on attention, with no recurrence and no convolutions, do the job better and train far faster?",
+    "claim_ids": [
+     "ea2fc2eb-c81e-4d2d-a1e5-706f23ad08a0",
+     "e47f24c4-f3f6-4540-af61-1fb98bb59edd"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": {
+     "kicker": "The problem",
+     "visual": {
+      "type": "quote",
+      "quote": "We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely.",
+      "caption": "The paper's one-sentence pitch, in the authors' own words.",
+      "eyebrow": "The proposal",
+      "attribution": "Attention Is All You Need (the Transformer paper)"
+     },
+     "index_label": "01"
+    }
+   },
+   {
+    "id": "d7c8abd9-d237-401e-9cc6-b9e358231669",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "story",
+    "order": 1,
+    "title": "An encoder, a decoder and attention everywhere",
+    "content": "The Transformer has an encoder and a decoder, each a stack of six identical layers. Each encoder layer has a multi-head self-attention step and a position-wise feed-forward step, wrapped in residual connections and layer normalization. The decoder adds a third step that looks at the encoder's output. It also masks its own self-attention so a position cannot peek at later positions, which keeps predictions auto-regressive. Because attention has no built-in sense of order, the model adds sine and cosine position signals to the word embeddings. Multi-head attention is used in three ways: encoder-decoder attention, encoder self-attention and masked decoder self-attention.",
+    "claim_ids": [
+     "76f92a24-cf59-47ae-9a0f-fd60847c6b6f",
+     "3971c391-6a6a-4485-8e26-8e6ca18c3a15",
+     "67215443-dd17-4743-832b-e2d92689eb42",
+     "8ae00268-e017-42b0-afe7-4946fdcd53df"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": {
+     "kicker": "The design",
+     "visual": {
+      "type": "architecture",
+      "edges": [
+       {
+        "label": "input representations",
+        "source": "emb",
+        "target": "enc"
+       },
+       {
+        "label": "encoder-decoder attention",
+        "source": "enc",
+        "target": "dec"
+       },
+       {
+        "label": "predictions",
+        "source": "dec",
+        "target": "out"
+       }
+      ],
+      "nodes": [
+       {
+        "id": "emb",
+        "group": "input",
+        "label": "Embeddings + positions",
+        "detail": "Word embeddings with sinusoidal positional encodings added."
+       },
+       {
+        "id": "enc",
+        "group": "core",
+        "label": "Encoder stack",
+        "detail": "N=6 identical layers: multi-head self-attention then a feed-forward sub-layer, with residuals and layer normalization."
+       },
+       {
+        "id": "dec",
+        "group": "core",
+        "label": "Decoder stack",
+        "detail": "Masked self-attention, a sub-layer attending over the encoder output, and a feed-forward sub-layer."
+       },
+       {
+        "id": "out",
+        "group": "output",
+        "label": "Output prediction",
+        "detail": "The decoder produces the translation one position at a time, auto-regressively."
+       }
+      ],
+      "caption": "Words plus position signals flow through an encoder stack and a decoder stack linked by attention.",
+      "eyebrow": "How the pieces fit"
+     },
+     "index_label": "02"
+    }
+   },
+   {
+    "id": "042e4c3d-d544-4f8e-83f8-66f906a3b149",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "story",
+    "order": 2,
+    "title": "Every word looks at every other word",
+    "content": "Attention scores how relevant each word is to each other word. The model compares a query with all keys using dot products, divides each by the square root of the key size dk, and applies a softmax to get weights on the values. The authors suspect that for large dk the dot products grow large and push the softmax into regions with extremely small gradients, which is why the scaling is there. Multi-head attention runs this several times in parallel with different learned projections. The paper uses 8 heads with 64 dimensions each, so the cost stays similar to a single head. Several heads let the model attend to different kinds of information at once, which a single head's averaging inhibits.",
+    "claim_ids": [
+     "a3252d4e-e352-4f7c-9e59-aed99afdc9a6",
+     "d16638c4-661a-4aa7-86a9-2f91846a71a9",
+     "2127bc28-b70b-4c68-903b-9b9cc61bd022",
+     "10077d79-d390-4f37-b088-be6d05e9940b"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": {
+     "kicker": "The core idea",
+     "visual": {
+      "type": "equation",
+      "steps": [
+       "Compute the dot products of the query with all keys.",
+       "Divide each by √dk.",
+       "Apply a softmax to obtain the weights on the values."
+      ],
+      "terms": [
+       {
+        "label": "Queries",
+        "detail": "What each position is looking for.",
+        "symbol": "Q"
+       },
+       {
+        "label": "Keys",
+        "detail": "What each position offers; dot products of the query with all keys give the scores.",
+        "symbol": "K"
+       },
+       {
+        "label": "Values",
+        "detail": "The information that is weighted and combined.",
+        "symbol": "V"
+       },
+       {
+        "label": "Key dimension",
+        "detail": "Scores are divided by √dk; 64 per head in this work.",
+        "symbol": "dk"
+       }
+      ],
+      "caption": "Queries are matched to keys, scaled and softmaxed into weights over the values.",
+      "eyebrow": "Scaled dot-product attention",
+      "formula": "softmax(Q·K / √dk) · V"
+     },
+     "index_label": "03"
+    }
+   },
+   {
+    "id": "f4d21898-121d-4e00-82ce-432847f05756",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "story",
+    "order": 3,
+    "title": "Better translations than the previous best",
+    "content": "On WMT 2014 English-to-German, the big Transformer reaches 28.4 BLEU. That beats the best earlier results, including ensembles, by more than 2 BLEU. Even the base model surpasses all previously published models and ensembles there, at a fraction of the training cost. The chart compares the BLEU scores listed in the paper's Table 2.",
+    "claim_ids": [
+     "8f09e290-f871-4fed-b083-5197b9f233ef",
+     "b246133c-611a-4455-a78a-27a0040fb4a0",
+     "8073c8d5-ce72-49a0-8312-c273f84c83a5"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": {
+     "kicker": "The payoff",
+     "visual": {
+      "type": "comparison",
+      "items": [
+       {
+        "label": "ByteNet",
+        "value": 23.75,
+        "highlight": false,
+        "display_value": "23.75 BLEU"
+       },
+       {
+        "label": "ConvS2S Ensemble",
+        "value": 26.36,
+        "highlight": false,
+        "display_value": "26.36 BLEU"
+       },
+       {
+        "label": "Transformer (base)",
+        "value": 27.3,
+        "highlight": false,
+        "display_value": "27.3 BLEU"
+       },
+       {
+        "label": "Transformer (big)",
+        "value": 28.4,
+        "highlight": true,
+        "display_value": "28.4 BLEU"
+       }
+      ],
+      "caption": "The Transformer outscores ByteNet and the best earlier ensemble on English-to-German.",
+      "eyebrow": "English-to-German BLEU"
+     },
+     "index_label": "04"
+    }
+   },
+   {
+    "id": "9e2df41e-f385-478b-b511-7fbb5a76e70b",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "story",
+    "order": 4,
+    "title": "Quality in days, not weeks",
+    "content": "The Transformer is more parallelizable and needs significantly less time to train than recurrent or convolutional models. Base models trained for 100,000 steps, about 12 hours, on one machine with 8 P100 GPUs. Big models trained for 300,000 steps, about 3.5 days. On English-to-French, the big model set a new single-model state of the art of 41.8 BLEU after 3.5 days on eight GPUs. That is a small fraction of the training cost of the best models in the literature.",
+    "claim_ids": [
+     "0f44ac5d-6ef4-41f7-af27-bd296c0a7b42",
+     "8eaa9523-5832-4c18-aac9-4f29c437ae16",
+     "92b895d2-abcb-455b-a039-db42c59b335a"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": {
+     "kicker": "The cost",
+     "visual": {
+      "type": "metric",
+      "items": [
+       {
+        "note": "Transformer big, WMT 2014",
+        "label": "English-to-German BLEU",
+        "value": "28.4"
+       },
+       {
+        "note": "Single-model state of the art",
+        "label": "English-to-French BLEU",
+        "value": "41.8"
+       },
+       {
+        "note": "Eight P100 GPUs",
+        "label": "Big model training time",
+        "value": "3.5 days"
+       },
+       {
+        "note": "On eight P100 GPUs",
+        "label": "Time to reach new state of the art",
+        "value": "twelve hours"
+       }
+      ],
+      "caption": "Top scores, reached with modest training time on eight GPUs.",
+      "eyebrow": "Headline numbers"
+     },
+     "index_label": "05"
+    }
+   },
+   {
+    "id": "8c7045c8-f797-476f-a918-8abd1bf00895",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "story",
+    "order": 5,
+    "title": "Ablations: which choices count",
+    "content": "The authors varied the design to see what mattered. Single-head attention was 0.9 BLEU worse than the best setting, and quality also dropped with too many heads. Bigger models were better, and dropout was very helpful in avoiding over-fitting. Reducing the attention key size hurt quality, which the authors read as a hint that a more sophisticated compatibility function than the dot product may help. Swapping the sinusoidal position signals for learned embeddings gave nearly identical results.",
+    "claim_ids": [
+     "4c23290f-b136-4c2c-a136-e11f753cbdd2",
+     "c0b12d69-a302-4a94-8b55-5823981c78fd",
+     "b48b38fc-91f7-4544-815e-54a0f760902f",
+     "5b727c89-1a90-4594-b3e2-aec7aff3b067"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": {
+     "kicker": "What matters",
+     "visual": {
+      "type": "infographic",
+      "items": [
+       {
+        "badge": "0.9 BLEU worse",
+        "label": "Number of heads",
+        "detail": "Single-head attention is worse than the best setting, and too many heads also hurts."
+       },
+       {
+        "badge": "Bigger + dropout",
+        "label": "Model size and dropout",
+        "detail": "Bigger models are better, and dropout helps avoid over-fitting."
+       },
+       {
+        "badge": "Smaller dk hurts",
+        "label": "Key size",
+        "detail": "Reducing the attention key size dk hurts quality."
+       },
+       {
+        "badge": "25.7 vs 25.8 BLEU",
+        "label": "Position signals",
+        "detail": "Learned positional embeddings gave nearly identical results to sinusoids."
+       }
+      ],
+      "caption": "Four takeaways from varying the model's design choices.",
+      "eyebrow": "Ablation findings"
+     },
+     "index_label": "06"
+    }
+   },
+   {
+    "id": "0bf2e5d7-a78a-4369-8336-01cac6082f63",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "story",
+    "order": 6,
+    "title": "It also learns grammar trees",
+    "content": "To test generality, the authors applied a 4-layer Transformer to English constituency parsing. This task is hard because the output has strong structural constraints and is much longer than the input. RNN sequence-to-sequence models had also not reached state of the art in small-data regimes. With little task-specific tuning, the Transformer did surprisingly well, beating all previously reported models except the Recurrent Neural Network Grammar. Even trained only on the 40K-sentence WSJ set, it outperformed the BerkeleyParser, unlike RNN sequence-to-sequence models. The authors tuned only dropout, learning rates and beam size for this task, with a small number of experiments.",
+    "claim_ids": [
+     "7d604aa7-6e80-4c2e-a147-8ef7971c0451",
+     "03124ac3-343d-4c86-a30c-3d8135fa3249",
+     "80e72f28-875d-482f-afa2-ef6892a3d987",
+     "72a9fd4b-73e0-490e-9a7c-3e412af5b079",
+     "30bf3fd6-c4e5-4648-a762-24d84774b2d9"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": {
+     "kicker": "Beyond translation",
+     "visual": {
+      "type": "comparison",
+      "items": [
+       {
+        "label": "Vinyals & Kaiser (WSJ only)",
+        "value": 88.3,
+        "highlight": false,
+        "display_value": "88.3 F1"
+       },
+       {
+        "label": "Transformer (WSJ only)",
+        "value": 91.3,
+        "highlight": true,
+        "display_value": "91.3 F1"
+       },
+       {
+        "label": "Transformer (semi-supervised)",
+        "value": 92.7,
+        "highlight": true,
+        "display_value": "92.7 F1"
+       },
+       {
+        "label": "Luong et al. multi-task",
+        "value": 93.0,
+        "highlight": false,
+        "display_value": "93.0 F1"
+       },
+       {
+        "label": "Dyer et al. (2016) generative",
+        "value": 93.3,
+        "highlight": false,
+        "display_value": "93.3 F1"
+       }
+      ],
+      "caption": "The Transformer is competitive with specialized parsers, trailing only the generative Dyer et al. model among those shown.",
+      "eyebrow": "Parsing F1 on WSJ section 23"
+     },
+     "index_label": "07"
+    }
+   },
+   {
+    "id": "9ed4a007-4946-4a80-9d73-f4ddae24dd27",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "story",
+    "order": 7,
+    "title": "Limits and what comes next",
+    "content": "Attention relates any two positions in a constant number of operations, whereas ConvS2S and ByteNet need operations that grow linearly or logarithmically with distance. That comes at the cost of reduced effective resolution from averaging attention-weighted positions. For very long inputs the authors suggest restricting attention to a neighborhood of size r, which would increase the maximum path length to O(n/r). They leave this for future work. They also plan to extend the Transformer to other modalities such as images, audio and video, and to make generation less sequential.",
+    "claim_ids": [
+     "a91f98e7-8324-4ff2-8e83-8a1a9cefb84d",
+     "1b92e03c-c8cd-4ce4-9cb6-4eec05696875",
+     "77dd72bf-6475-45d0-ae7e-fc20f494d854"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": {
+     "kicker": "Open questions",
+     "visual": {
+      "type": "concept",
+      "items": [
+       {
+        "label": "Other modalities",
+        "detail": "Extend the Transformer to input and output beyond text, such as images, audio and video."
+       },
+       {
+        "label": "Local restricted attention",
+        "detail": "Efficiently handle large inputs and outputs by restricting attention to a neighborhood of size r."
+       },
+       {
+        "label": "Path length trade-off",
+        "detail": "Restricting attention would increase the maximum path length to O(n/r)."
+       },
+       {
+        "label": "Less sequential generation",
+        "detail": "Making generation less sequential is another research goal."
+       }
+      ],
+      "center": "Future work",
+      "caption": "The authors' stated future directions and the trade-off behind them.",
+      "eyebrow": "Where the work goes next"
+     },
+     "index_label": "08"
+    }
+   },
+   {
+    "id": "da93ba86-5350-4be7-a153-ce912b3f0b0b",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "primer",
+    "order": 0,
+    "title": "The problem: sequential computation in recurrent models",
+    "content": "General background (not a claim of this paper): sequence transduction tasks such as machine translation map an input sequence to an output sequence. Recurrent neural networks (RNNs) have traditionally been used for this, processing a sequence one position at a time. The paper reports that this inherently sequential nature precludes parallelization within training examples. This becomes critical at longer sequence lengths, because memory constraints limit batching across examples. This limitation motivates the paper's proposal, the Transformer, a network architecture based solely on attention mechanisms that dispenses with recurrence and convolutions entirely.",
+    "claim_ids": [
+     "e47f24c4-f3f6-4540-af61-1fb98bb59edd",
+     "ea2fc2eb-c81e-4d2d-a1e5-706f23ad08a0"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": null
+   },
+   {
+    "id": "a9dae75d-a24f-4bb4-af7b-1653de557c69",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "primer",
+    "order": 1,
+    "title": "Relating distant positions: convolutional models and path length",
+    "content": "General background: a central question for sequence models is how easily they learn dependencies between positions that are far apart. The paper notes that in convolutional models such as ConvS2S and ByteNet, the number of operations needed to relate signals from two arbitrary positions grows with their distance, linearly for ConvS2S and logarithmically for ByteNet. This makes long-distance dependencies harder to learn. The Transformer reduces this to a constant number of operations. The paper acknowledges a cost: reduced effective resolution due to averaging attention-weighted positions.",
+    "claim_ids": [
+     "77dd72bf-6475-45d0-ae7e-fc20f494d854"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": null
+   },
+   {
+    "id": "87fa18c6-cd33-4186-aa26-822a7b86e854",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "primer",
+    "order": 3,
+    "title": "Scaled dot-product attention and why dot-product is used",
+    "content": "General background: attention lets a model compute, for each position, a weighted combination of values, where the weights depend on how well a query matches a set of keys. In the paper's scaled dot-product attention, the query's dot products with all keys are computed, each is divided by √dk, and a softmax produces the weights on the values. The paper contrasts dot-product attention with additive attention: the two are similar in theoretical complexity, but dot-product attention is much faster and more space-efficient in practice.",
+    "claim_ids": [
+     "a3252d4e-e352-4f7c-9e59-aed99afdc9a6",
+     "1db9af45-7637-457a-8021-5a67c56c757e"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": null
+   },
+   {
+    "id": "78f32e7c-a466-4860-acfc-1f8df348c17c",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "primer",
+    "order": 4,
+    "title": "Multi-head attention",
+    "content": "Rather than a single attention function, multi-head attention linearly projects the queries, keys and values h times, applies attention in parallel to each projection, then concatenates and projects the outputs. The paper uses h = 8 heads with dk = dv = dmodel/h = 64. Because each head has reduced dimension, the total computational cost is similar to single-head attention with full dimensionality.",
+    "claim_ids": [
+     "2127bc28-b70b-4c68-903b-9b9cc61bd022"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": null
+   },
+   {
+    "id": "aae2587a-e7ce-41ec-ba7f-95c7bf442bbb",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "primer",
+    "order": 5,
+    "title": "Encoder-decoder structure and the three uses of attention",
+    "content": "General background: many sequence transduction models use an encoder that reads the input and a decoder that generates the output. In this paper, both the encoder and decoder are stacks of N = 6 identical layers with dmodel = 512. Encoder layers have a multi-head self-attention sub-layer and a position-wise feed-forward sub-layer. Each sub-layer is wrapped with a residual connection and layer normalization, so its output is LayerNorm(x + Sublayer(x)). The decoder adds a third sub-layer that attends over the encoder output, and its self-attention is masked so positions cannot attend to subsequent positions, preserving auto-regressive prediction. Overall, the Transformer uses multi-head attention in three ways: encoder-decoder attention, encoder self-attention, and masked decoder self-attention.",
+    "claim_ids": [
+     "76f92a24-cf59-47ae-9a0f-fd60847c6b6f",
+     "3971c391-6a6a-4485-8e26-8e6ca18c3a15",
+     "8ae00268-e017-42b0-afe7-4946fdcd53df"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": null
+   },
+   {
+    "id": "f313b55d-51ec-4a49-8fb8-85a31e23473b",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "primer",
+    "order": 6,
+    "title": "Positional encodings and shared embeddings",
+    "content": "General background: because attention alone does not encode word order, position information must be injected. The paper does this with sine and cosine functions of different frequencies, added to the input embeddings. The model also shares the same weight matrix between the two embedding layers and the pre-softmax linear transformation, similar to prior work.",
+    "claim_ids": [
+     "67215443-dd17-4743-832b-e2d92689eb42",
+     "9f36dd6c-6878-4015-a3d4-f4d4ac96a302"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": null
+   },
+   {
+    "id": "4b8c8c24-4057-4adf-a2f3-7a4f8ebb88cc",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "primer",
+    "order": 7,
+    "title": "Training data and hardware setup",
+    "content": "The models were trained on the standard WMT 2014 English-German dataset (about 4.5 million sentence pairs, with a roughly 37000-token BPE vocabulary) and the much larger WMT 2014 English-French dataset (36M sentences, with a 32000 word-piece vocabulary). Training ran on one machine with 8 P100 GPUs. Base models trained for 100,000 steps (12 hours) and big models for 300,000 steps (3.5 days).",
+    "claim_ids": [
+     "6d8f836d-d321-4ff2-9e95-b1612653bb3e",
+     "8eaa9523-5832-4c18-aac9-4f29c437ae16"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": null
+   },
+   {
+    "id": "475033ef-40d4-4234-9d2a-4c8fdb376bc3",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "primer",
+    "order": 8,
+    "title": "Optimization and regularization",
+    "content": "General background: Adam is a widely used gradient-based optimizer, and dropout and label smoothing are common regularization techniques. The paper uses Adam with β1 = 0.9, β2 = 0.98 and ϵ = 10⁻⁹. Its learning rate increases linearly for 4000 warmup steps, then decays proportionally to the inverse square root of the step number. For regularization it uses residual dropout (Pdrop = 0.1 for the base model) and label smoothing of 0.1. The paper notes that label smoothing hurts perplexity, since the model learns to be more unsure, but improves accuracy and BLEU score.",
+    "claim_ids": [
+     "d0317e86-7f7f-47fd-9ac5-82b307345f12",
+     "35b6224b-79ad-4ded-b49f-b61829248fd1"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": null
+   },
+   {
+    "id": "71f2f056-cb1e-42cb-84de-e8373c3b5b05",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "primer",
+    "order": 9,
+    "title": "Inference: checkpoint averaging and beam search",
+    "content": "General background: beam search keeps several candidate output sequences while decoding, and a length penalty adjusts how outputs of different lengths are scored. The paper uses a single model obtained by averaging the last 5 checkpoints for base models (written at 10-minute intervals) and the last 20 for big models. It decodes with beam search of size 4 and length penalty α = 0.6.",
+    "claim_ids": [
+     "4541f82e-a443-408b-a78d-5af8840d5d82"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": null
+   },
+   {
+    "id": "9a151723-caff-4886-9b53-685387a2b824",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "primer",
+    "order": 10,
+    "title": "Constituency parsing as a test of generalization",
+    "content": "General background: constituency parsing assigns a hierarchical phrase structure to a sentence. The paper describes the task as challenging because the output is subject to strong structural constraints and is significantly longer than the input. It also notes that RNN sequence-to-sequence models have not attained state-of-the-art results in small-data regimes. For parsing, only a small number of experiments were performed to select dropout, learning rates and beam size on the Section 22 development set, with other parameters unchanged from the English-to-German base model.",
+    "claim_ids": [
+     "80e72f28-875d-482f-afa2-ef6892a3d987",
+     "30bf3fd6-c4e5-4648-a762-24d84774b2d9"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": null
+   },
+   {
+    "id": "6553490e-01d6-4abc-b321-a176afc9dfc0",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "application_guide",
+    "order": 0,
+    "title": "When to reach for this approach",
+    "content": "The Transformer is a network architecture based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Consider it when you are working on sequence transduction problems such as machine translation, where the paper reports better quality than previous state-of-the-art models along with greater parallelizability and substantially shorter training time than recurrent or convolutional architectures. The paper also reports that it generalizes to English constituency parsing, so it is not limited to translation.",
+    "claim_ids": [
+     "ea2fc2eb-c81e-4d2d-a1e5-706f23ad08a0",
+     "0f44ac5d-6ef4-41f7-af27-bd296c0a7b42",
+     "72a9fd4b-73e0-490e-9a7c-3e412af5b079"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": null
+   },
+   {
+    "id": "19197454-d602-4596-a447-3eaa2ef03f3d",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "application_guide",
+    "order": 1,
+    "title": "What you need: data and compute",
+    "content": "The paper trained on standard WMT 2014 datasets: English-German with about 4.5 million sentence pairs (about 37000-token BPE vocabulary) and the much larger English-French set of 36M sentences (32000 word-piece vocabulary). Hardware was one machine with 8 P100 GPUs. Base models trained for 100,000 steps (12 hours) and big models for 300,000 steps (3.5 days). If your setup is comparable, these figures give a realistic sense of the budget required.",
+    "claim_ids": [
+     "6d8f836d-d321-4ff2-9e95-b1612653bb3e",
+     "8eaa9523-5832-4c18-aac9-4f29c437ae16"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": null
+   },
+   {
+    "id": "789e7730-ad30-48ef-b401-f2fb84a0b041",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "application_guide",
+    "order": 2,
+    "title": "Starting configuration",
+    "content": "The base configuration uses an encoder and decoder each with a stack of N=6 identical layers and dmodel=512. Multi-head attention uses h=8 heads with dk=dv=64, which keeps computational cost similar to single-head attention at full dimensionality. The decoder adds attention over the encoder output and masks self-attention so that predictions remain auto-regressive. Position information is injected with sinusoidal encodings; learned positional embeddings gave nearly identical results, so either choice is reasonable. The model also shares one weight matrix between the two embedding layers and the pre-softmax linear transformation.",
+    "claim_ids": [
+     "76f92a24-cf59-47ae-9a0f-fd60847c6b6f",
+     "2127bc28-b70b-4c68-903b-9b9cc61bd022",
+     "3971c391-6a6a-4485-8e26-8e6ca18c3a15",
+     "67215443-dd17-4743-832b-e2d92689eb42",
+     "5b727c89-1a90-4594-b3e2-aec7aff3b067",
+     "9f36dd6c-6878-4015-a3d4-f4d4ac96a302"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": null
+   },
+   {
+    "id": "baf00ea9-cf1d-4220-a2d0-ad8067c9b577",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "application_guide",
+    "order": 3,
+    "title": "Training recipe to follow",
+    "content": "The paper trained with the Adam optimizer, with a learning rate that increases linearly over 4000 warmup steps and then decays proportionally to the inverse square root of the step number. Regularization consisted of residual dropout (0.1 for the base model) and label smoothing of 0.1; label smoothing hurts perplexity but improves accuracy and BLEU, so do not judge it by perplexity alone. Dropout was found very helpful against over-fitting, and bigger models performed better.",
+    "claim_ids": [
+     "d0317e86-7f7f-47fd-9ac5-82b307345f12",
+     "35b6224b-79ad-4ded-b49f-b61829248fd1",
+     "c0b12d69-a302-4a94-8b55-5823981c78fd"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": null
+   },
+   {
+    "id": "96db1948-0a0d-405a-8991-8bae1fc7ffaf",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "application_guide",
+    "order": 4,
+    "title": "Inference settings",
+    "content": "For decoding, the paper used a single model obtained by averaging the last 5 checkpoints for base models (written at 10-minute intervals) or the last 20 for big models, with beam search of size 4 and length penalty 0.6.",
+    "claim_ids": [
+     "4541f82e-a443-408b-a78d-5af8840d5d82"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": null
+   },
+   {
+    "id": "49ea6b2b-3c05-4f2a-98db-0ed71c3197c8",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "application_guide",
+    "order": 5,
+    "title": "Design choices that matter",
+    "content": "Attention head count is worth checking: single-head attention was 0.9 BLEU worse than the best setting, but quality also dropped with too many heads. So avoid both extremes rather than assuming more heads is better.",
+    "claim_ids": [
+     "4c23290f-b136-4c2c-a136-e11f753cbdd2"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": null
+   },
+   {
+    "id": "46b697f8-12dd-4a9f-9d5d-f546681d32a6",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "application_guide",
+    "order": 6,
+    "title": "Results to expect on translation",
+    "content": "The big Transformer reached 28.4 BLEU on WMT 2014 English-to-German, improving over the best previous results including ensembles by over 2 BLEU. Even the base model surpassed all previously published models and ensembles there at a fraction of the training cost. On English-to-French, the paper reports a new single-model state of the art of 41.8 BLEU after 3.5 days on eight GPUs, a small fraction of the training cost of the best literature models. Note that the text of Section 6.1 states 41.0 BLEU for the big model, at less than 1/4 the training cost of the previous state of the art, so the two figures differ within the paper itself.",
+    "claim_ids": [
+     "8f09e290-f871-4fed-b083-5197b9f233ef",
+     "b246133c-611a-4455-a78a-27a0040fb4a0",
+     "92b895d2-abcb-455b-a039-db42c59b335a",
+     "c59941a8-970a-4abf-9e0e-0b7f67b60254",
+     "8073c8d5-ce72-49a0-8312-c273f84c83a5"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": null
+   },
+   {
+    "id": "1ac6b237-3cf0-47bd-8885-6097edd69061",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "section_type": "application_guide",
+    "order": 7,
+    "title": "Applying it to other tasks such as parsing",
+    "content": "For English constituency parsing, a 4-layer Transformer with little task-specific tuning performed surprisingly well, better than all previously reported models except the Recurrent Neural Network Grammar. Only a small number of experiments were used to select dropout, learning rates and beam size, with other parameters unchanged from the English-to-German base model. Unlike RNN sequence-to-sequence models, it outperformed the BerkeleyParser even when trained only on the roughly 40K-sentence WSJ training set, which makes it a candidate when labeled data is limited.",
+    "claim_ids": [
+     "7d604aa7-6e80-4c2e-a147-8ef7971c0451",
+     "30bf3fd6-c4e5-4648-a762-24d84774b2d9",
+     "03124ac3-343d-4c86-a30c-3d8135fa3249",
+     "72a9fd4b-73e0-490e-9a7c-3e412af5b079"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00",
+    "data": null
+   }
+  ],
+  "stories": [
+   {
+    "id": "472f619c-1b69-4822-be65-193767339010",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "title": "Attention Is All You Need: The Machine Translation Shortcut",
+    "dek": "A translation model drops step-by-step processing and lets every word look at every other word, and it gets better and faster to train.",
+    "reading_time": "6 min read",
+    "closing": {
+     "body": "The Transformer showed that attention alone can beat recurrent and convolutional translation systems on quality while training much faster. It also carried over to English constituency parsing. Open questions remain. The authors want to extend it beyond text to images, audio and video, to try local restricted attention for very large inputs, and to make generation less sequential.",
+     "title": "What to take away"
+    },
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   }
+  ],
+  "figures": [
+   {
+    "id": "430ae301-e9ad-43c9-a3d8-0d4c0e04eee0",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "filename": "page3_vec0.png",
+    "page": 3,
+    "label": "Figure 1",
+    "why_it_matters": "This diagram gives the overall layout of the encoder and decoder stacks. It shows how self-attention, feed-forward sub-layers, the decoder's extra encoder-decoder attention and the positional encodings fit together without recurrence or convolution.",
+    "claim_ids": [
+     "76f92a24-cf59-47ae-9a0f-fd60847c6b6f",
+     "3971c391-6a6a-4485-8e26-8e6ca18c3a15",
+     "8ae00268-e017-42b0-afe7-4946fdcd53df",
+     "67215443-dd17-4743-832b-e2d92689eb42",
+     "eef3eec2-d892-40a0-a018-9353365c9d13"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "b8295026-2257-4e4b-ae26-e1931c7b55d1",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "filename": "page4_vec0.png",
+    "page": 4,
+    "label": "Figure 2",
+    "why_it_matters": "It depicts the attention computation the model is built on, with the scaling step and the parallel heads whose outputs are concatenated and projected. This makes the core mechanism concrete and shows where the multi-head design allows attention to different subspaces.",
+    "claim_ids": [
+     "a3252d4e-e352-4f7c-9e59-aed99afdc9a6",
+     "2127bc28-b70b-4c68-903b-9b9cc61bd022",
+     "10077d79-d390-4f37-b088-be6d05e9940b"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "2b725927-1825-4638-8a3e-dec9dc6055d5",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "filename": "page6_tab0.png",
+    "page": 6,
+    "label": "Table 1",
+    "why_it_matters": "The table compares layer types on path length, per-layer complexity and sequential operations. It supports the argument that self-attention connects all positions in a constant number of sequential operations, which underlies the parallelization and long-range dependency claims.",
+    "claim_ids": [
+     "3dd25d5c-3e88-45ba-acbd-909de21b0687",
+     "77dd72bf-6475-45d0-ae7e-fc20f494d854",
+     "1b92e03c-c8cd-4ce4-9cb6-4eec05696875",
+     "0f44ac5d-6ef4-41f7-af27-bd296c0a7b42"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "d4541526-73b2-4ff5-8afe-3feba5e331f6",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "filename": "page8_tab0.png",
+    "page": 8,
+    "label": "Table 2",
+    "why_it_matters": "This is the main empirical result on machine translation. It compares the Transformer's BLEU and training cost with prior systems and backs the claim of state-of-the-art quality at lower cost.",
+    "claim_ids": [
+     "8073c8d5-ce72-49a0-8312-c273f84c83a5",
+     "8f09e290-f871-4fed-b083-5197b9f233ef",
+     "b246133c-611a-4455-a78a-27a0040fb4a0",
+     "c59941a8-970a-4abf-9e0e-0b7f67b60254"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "fd3ed473-18fb-4286-87c4-1ae0b0b2eceb",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "filename": "page9_tab0.png",
+    "page": 9,
+    "label": "Table 3",
+    "why_it_matters": "The ablation table shows which architectural choices matter: number of heads, key size, model size, dropout and positional encoding type. It supports the paper's design decisions and the observations drawn from varying them.",
+    "claim_ids": [
+     "4c23290f-b136-4c2c-a136-e11f753cbdd2",
+     "b48b38fc-91f7-4544-815e-54a0f760902f",
+     "c0b12d69-a302-4a94-8b55-5823981c78fd",
+     "5b727c89-1a90-4594-b3e2-aec7aff3b067"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "d792b65a-a1f1-4481-a009-51e7b815df2a",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "filename": "page10_tab0.png",
+    "page": 10,
+    "label": "Table 4",
+    "why_it_matters": "It shows the model carries over to a different task, English constituency parsing, with little task-specific tuning. This supports the claim that the Transformer is not limited to translation.",
+    "claim_ids": [
+     "7d604aa7-6e80-4c2e-a147-8ef7971c0451",
+     "03124ac3-343d-4c86-a30c-3d8135fa3249"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "a333f4f2-c3bd-4bb0-9705-6a8259e53781",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "filename": "page13_vec0.png",
+    "page": 13,
+    "label": "Figure 3",
+    "why_it_matters": "This visualization shows heads in a deep encoder layer attending across a long-distance dependency. It offers qualitative evidence that self-attention can capture long-range structure and may be interpretable.",
+    "claim_ids": [
+     "7d22d98d-5a33-45a4-b51b-5edd5eb8fded"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "a7b6d6ca-574d-4231-b65e-29887df6be33",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "filename": "page14_vec0.png",
+    "page": 14,
+    "label": "Figure 4",
+    "why_it_matters": "It gives an example of specific heads that appear to resolve anaphora, with sharp attention on one word. This supports the interpretability claim that individual heads take on linguistically meaningful roles.",
+    "claim_ids": [
+     "7d22d98d-5a33-45a4-b51b-5edd5eb8fded"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "34b73d20-cbea-48b1-9fe6-e09c4995e6fd",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "filename": "page15_vec0.png",
+    "page": 15,
+    "label": "Figure 5",
+    "why_it_matters": "The examples show different heads behaving differently and in ways tied to sentence structure. This illustrates the claim that heads learn distinct tasks related to syntactic and semantic structure.",
+    "claim_ids": [
+     "7d22d98d-5a33-45a4-b51b-5edd5eb8fded"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   }
+  ],
+  "learning_quiz_questions": [
+   {
+    "id": "e5338eb8-4218-45d2-9261-6218dbf45f2c",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 0,
+    "question": "What is the core architectural idea of the Transformer?",
+    "options": [
+     "It is based solely on attention mechanisms, dispensing with recurrence and convolutions entirely",
+     "It combines recurrence with convolutions for faster training",
+     "It uses recurrent layers with a single attention head",
+     "It uses convolutional layers with logarithmic path length"
+    ],
+    "correct_answer": "It is based solely on attention mechanisms, dispensing with recurrence and convolutions entirely",
+    "explanation": "The paper proposes the Transformer as a network architecture based solely on attention, dispensing with recurrence and convolutions entirely.",
+    "claim_ids": [
+     "ea2fc2eb-c81e-4d2d-a1e5-706f23ad08a0"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "83d72b69-9109-4d7d-91be-e0fb8604fa10",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 1,
+    "question": "What BLEU score did the Transformer achieve on WMT 2014 English-to-German translation?",
+    "options": [
+     "25.8",
+     "28.4",
+     "41.0",
+     "41.8"
+    ],
+    "correct_answer": "28.4",
+    "explanation": "The model achieves 28.4 BLEU on English-to-German, improving over the best previous results, including ensembles, by over 2 BLEU.",
+    "claim_ids": [
+     "8f09e290-f871-4fed-b083-5197b9f233ef"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "de91469a-15ef-4dd3-ab1e-72be82877542",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 2,
+    "question": "What single-model state-of-the-art BLEU score did the Transformer establish on WMT 2014 English-to-French after 3.5 days on eight GPUs?",
+    "options": [
+     "28.4",
+     "37.0",
+     "41.8",
+     "45.2"
+    ],
+    "correct_answer": "41.8",
+    "explanation": "The paper states the model establishes a new single-model state-of-the-art BLEU of 41.8 after 3.5 days on eight GPUs.",
+    "claim_ids": [
+     "92b895d2-abcb-455b-a039-db42c59b335a"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "fd828ee0-f3fc-4518-bb26-50252f7fd97b",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 3,
+    "question": "In scaled dot-product attention, by what factor are the dot products of the query with the keys divided before applying softmax?",
+    "options": [
+     "dk",
+     "sqrt(dk)",
+     "dmodel",
+     "h"
+    ],
+    "correct_answer": "sqrt(dk)",
+    "explanation": "The dot products of the query with all keys are each divided by √dk, and then softmax is applied to obtain weights on the values.",
+    "claim_ids": [
+     "a3252d4e-e352-4f7c-9e59-aed99afdc9a6"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "77142620-0d60-4abd-99f7-310b9ceecff0",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 4,
+    "question": "Why do the authors scale dot products by 1/sqrt(dk)?",
+    "options": [
+     "They suspect that for large dk the dot products grow large, pushing softmax into regions with extremely small gradients",
+     "To make the model use less memory",
+     "To make attention additive rather than multiplicative",
+     "To allow extrapolation to longer sequences"
+    ],
+    "correct_answer": "They suspect that for large dk the dot products grow large, pushing softmax into regions with extremely small gradients",
+    "explanation": "The authors suspect large dot products push the softmax into regions with extremely small gradients, which motivates the scaling.",
+    "claim_ids": [
+     "d16638c4-661a-4aa7-86a9-2f91846a71a9"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "cae03bca-d6c7-4a56-b82a-c45b980c95e2",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 5,
+    "question": "How many parallel attention heads does the Transformer use, and what is the per-head dimension dk = dv?",
+    "options": [
+     "h = 8, dk = dv = 64",
+     "h = 4, dk = dv = 128",
+     "h = 16, dk = dv = 32",
+     "h = 8, dk = dv = 512"
+    ],
+    "correct_answer": "h = 8, dk = dv = 64",
+    "explanation": "The paper employs h = 8 parallel attention heads with dk = dv = dmodel/h = 64, keeping the computational cost similar to single-head attention.",
+    "claim_ids": [
+     "2127bc28-b70b-4c68-903b-9b9cc61bd022"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "d351f60b-34be-482d-9041-704e413c8101",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 6,
+    "question": "According to the authors, why is multi-head attention beneficial compared with a single attention head?",
+    "options": [
+     "It lets the model jointly attend to information from different representation subspaces at different positions, which averaging in a single head inhibits",
+     "It removes the need for positional encodings",
+     "It makes the model purely recurrent",
+     "It reduces the number of layers needed to one"
+    ],
+    "correct_answer": "It lets the model jointly attend to information from different representation subspaces at different positions, which averaging in a single head inhibits",
+    "explanation": "The paper says multi-head attention allows joint attention to different representation subspaces at different positions, while a single head's averaging inhibits this.",
+    "claim_ids": [
+     "10077d79-d390-4f37-b088-be6d05e9940b"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "3499b6a2-7d75-4dbb-971f-928d5b535cbb",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 7,
+    "question": "In the ablation study, how did single-head attention compare to the best setting?",
+    "options": [
+     "0.9 BLEU worse, and quality also drops with too many heads",
+     "Identical in quality",
+     "0.9 BLEU better",
+     "Much better, since too many heads never hurt"
+    ],
+    "correct_answer": "0.9 BLEU worse, and quality also drops with too many heads",
+    "explanation": "Single-head attention is 0.9 BLEU worse than the best setting, and quality also drops off with too many heads.",
+    "claim_ids": [
+     "4c23290f-b136-4c2c-a136-e11f753cbdd2"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "72f1f64a-b556-42f3-8b96-920faadb6a0c",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 8,
+    "question": "What did the authors find when comparing learned positional embeddings with sinusoidal encodings?",
+    "options": [
+     "Nearly identical results",
+     "Learned embeddings were much better",
+     "Sinusoidal encodings were much better",
+     "Learned embeddings failed to train"
+    ],
+    "correct_answer": "Nearly identical results",
+    "explanation": "The two versions produced nearly identical results.",
+    "claim_ids": [
+     "5b727c89-1a90-4594-b3e2-aec7aff3b067"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "50dea1d5-e99f-4339-9610-93862166b58f",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 9,
+    "question": "Why did the authors choose sinusoidal positional encodings?",
+    "options": [
+     "They hypothesized it would let the model learn to attend by relative positions, and it may allow extrapolation to longer sequences",
+     "They were far more accurate than learned embeddings",
+     "They require no addition to the input embeddings",
+     "They eliminate the need for attention"
+    ],
+    "correct_answer": "They hypothesized it would let the model learn to attend by relative positions, and it may allow extrapolation to longer sequences",
+    "explanation": "The authors hypothesized relative-position attention would be easy to learn and that sinusoids may extrapolate to longer sequences.",
+    "claim_ids": [
+     "aa8cebc0-401c-4bf4-a75b-9dccccca2d66",
+     "5b727c89-1a90-4594-b3e2-aec7aff3b067"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "c8690038-d83f-4601-976e-d26cc8f65af0",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 10,
+    "question": "How many identical layers N make up the encoder stack, and what is dmodel?",
+    "options": [
+     "N = 6, dmodel = 512",
+     "N = 12, dmodel = 256",
+     "N = 6, dmodel = 64",
+     "N = 8, dmodel = 1024"
+    ],
+    "correct_answer": "N = 6, dmodel = 512",
+    "explanation": "The encoder and decoder each consist of a stack of N = 6 identical layers, with dmodel = 512.",
+    "claim_ids": [
+     "76f92a24-cf59-47ae-9a0f-fd60847c6b6f"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "5951c905-4c73-4ea4-aebf-cf46a903c242",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 11,
+    "question": "What is the purpose of masking in the decoder's self-attention sub-layer?",
+    "options": [
+     "To prevent positions from attending to subsequent positions, preserving auto-regressive predictions",
+     "To reduce vocabulary size",
+     "To attend over the encoder output",
+     "To add positional information"
+    ],
+    "correct_answer": "To prevent positions from attending to subsequent positions, preserving auto-regressive predictions",
+    "explanation": "The decoder's self-attention is modified to prevent positions from attending to subsequent positions, preserving the auto-regressive property.",
+    "claim_ids": [
+     "3971c391-6a6a-4485-8e26-8e6ca18c3a15"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "7dd0fda6-fd54-4fa1-af2a-df3cf8b472b6",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 12,
+    "question": "How does the number of operations to relate distant positions grow in ConvS2S and ByteNet, versus the Transformer?",
+    "options": [
+     "Linearly for ConvS2S and logarithmically for ByteNet; constant for the Transformer",
+     "Logarithmically for ConvS2S and linearly for ByteNet; constant for the Transformer",
+     "Constant for all three",
+     "Quadratically for ConvS2S and linearly for ByteNet; logarithmic for the Transformer"
+    ],
+    "correct_answer": "Linearly for ConvS2S and logarithmically for ByteNet; constant for the Transformer",
+    "explanation": "The number of operations grows linearly for ConvS2S and logarithmically for ByteNet, and is reduced to a constant in the Transformer.",
+    "claim_ids": [
+     "77dd72bf-6475-45d0-ae7e-fc20f494d854"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "cafad02d-199b-4ef1-bd6c-440d3f7b7225",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 13,
+    "question": "Under what condition are self-attention layers faster than recurrent layers?",
+    "options": [
+     "When sequence length n is smaller than representation dimensionality d",
+     "When n is much larger than d",
+     "When there is only one attention head",
+     "When using label smoothing"
+    ],
+    "correct_answer": "When sequence length n is smaller than representation dimensionality d",
+    "explanation": "Self-attention is faster than recurrent layers when n is smaller than d, which is most often the case with sentence representations.",
+    "claim_ids": [
+     "3dd25d5c-3e88-45ba-acbd-909de21b0687"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "609de656-26a1-4b22-8c19-3f2076a70d25",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 14,
+    "question": "What optimizer and warmup setting were used for training?",
+    "options": [
+     "Adam with 4000 warmup steps",
+     "SGD with 1000 warmup steps",
+     "Adam with no warmup",
+     "RMSprop with 8000 warmup steps"
+    ],
+    "correct_answer": "Adam with 4000 warmup steps",
+    "explanation": "Training used Adam with a learning rate that increases linearly for warmup_steps = 4000 and then decays with the inverse square root of the step number.",
+    "claim_ids": [
+     "d0317e86-7f7f-47fd-9ac5-82b307345f12"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "c6860deb-f5d5-4836-b967-47016acb8199",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 15,
+    "question": "What effect does label smoothing of 0.1 have, according to the paper?",
+    "options": [
+     "It hurts perplexity but improves accuracy and BLEU",
+     "It improves perplexity but hurts BLEU",
+     "It has no effect",
+     "It improves perplexity and BLEU only"
+    ],
+    "correct_answer": "It hurts perplexity but improves accuracy and BLEU",
+    "explanation": "Label smoothing makes the model more unsure, hurting perplexity, but improves accuracy and BLEU score.",
+    "claim_ids": [
+     "35b6224b-79ad-4ded-b49f-b61829248fd1"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "b012a3a5-22be-4212-ba87-c91c1af0748d",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 16,
+    "question": "How many final checkpoints were averaged for base models versus big models?",
+    "options": [
+     "5 for base, 20 for big",
+     "10 for base, 5 for big",
+     "20 for base, 5 for big",
+     "1 for both"
+    ],
+    "correct_answer": "5 for base, 20 for big",
+    "explanation": "Base models averaged the last 5 checkpoints and big models averaged the last 20.",
+    "claim_ids": [
+     "4541f82e-a443-408b-a78d-5af8840d5d82"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "1a649ff3-0626-4de7-b55e-d0aed1ce3c12",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 17,
+    "question": "How long were the base and big models trained?",
+    "options": [
+     "Base: 100,000 steps (12 hours); big: 300,000 steps (3.5 days)",
+     "Base: 300,000 steps (3.5 days); big: 100,000 steps (12 hours)",
+     "Base: 50,000 steps; big: 100,000 steps",
+     "Both: 3.5 days"
+    ],
+    "correct_answer": "Base: 100,000 steps (12 hours); big: 300,000 steps (3.5 days)",
+    "explanation": "Base models trained for 100,000 steps or 12 hours, and big models for 300,000 steps (3.5 days).",
+    "claim_ids": [
+     "8eaa9523-5832-4c18-aac9-4f29c437ae16"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "dd1d336d-a0ce-41b8-b865-679ab888e05e",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 18,
+    "question": "What did the authors conclude from the observation that reducing the attention key size dk hurts quality?",
+    "options": [
+     "Determining compatibility is not easy, and a more sophisticated compatibility function than dot product may be beneficial",
+     "Dot product is optimal",
+     "Dropout should be removed",
+     "More layers are unnecessary"
+    ],
+    "correct_answer": "Determining compatibility is not easy, and a more sophisticated compatibility function than dot product may be beneficial",
+    "explanation": "The authors interpret the drop in quality as suggesting compatibility is hard to determine and a more sophisticated function than dot product might help.",
+    "claim_ids": [
+     "b48b38fc-91f7-4544-815e-54a0f760902f"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "d779be96-8a9d-48b7-ab05-6433ecf58e50",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 19,
+    "question": "How did the Transformer perform on English constituency parsing?",
+    "options": [
+     "Surprisingly well with little task-specific tuning, better than all previous models except the Recurrent Neural Network Grammar",
+     "Worse than all prior models",
+     "Better than every previously reported model",
+     "It could not be applied to parsing"
+    ],
+    "correct_answer": "Surprisingly well with little task-specific tuning, better than all previous models except the Recurrent Neural Network Grammar",
+    "explanation": "Despite lack of task-specific tuning, the model yielded better results than all previously reported models except the Recurrent Neural Network Grammar.",
+    "claim_ids": [
+     "7d604aa7-6e80-4c2e-a147-8ef7971c0451"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "3f4619aa-6feb-4a41-889c-84e2683be50b",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 20,
+    "question": "How does the Transformer compare with RNN seq2seq models when trained only on the 40K-sentence WSJ set for parsing?",
+    "options": [
+     "The Transformer outperforms the BerkeleyParser, unlike RNN seq2seq models",
+     "Both fail to match the BerkeleyParser",
+     "RNN seq2seq models outperform the Transformer",
+     "Both outperform the BerkeleyParser"
+    ],
+    "correct_answer": "The Transformer outperforms the BerkeleyParser, unlike RNN seq2seq models",
+    "explanation": "In contrast to RNN seq2seq models, the Transformer outperforms the BerkeleyParser even when trained only on the WSJ training set of 40K sentences.",
+    "claim_ids": [
+     "03124ac3-343d-4c86-a30c-3d8135fa3249"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "24cb36fe-85aa-4879-b38f-2328a979fd96",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 21,
+    "question": "Which are challenges of constituency parsing mentioned in the paper?",
+    "options": [
+     "Output has strong structural constraints and is significantly longer than the input",
+     "Output is shorter than input and unconstrained",
+     "The input is audio",
+     "There is too much training data"
+    ],
+    "correct_answer": "Output has strong structural constraints and is significantly longer than the input",
+    "explanation": "The paper notes the output is subject to strong structural constraints and is significantly longer than the input.",
+    "claim_ids": [
+     "80e72f28-875d-482f-afa2-ef6892a3d987"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "552b5af4-ca85-46cf-a603-fc1cd673f935",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 22,
+    "question": "What future research directions do the authors plan?",
+    "options": [
+     "Extending the Transformer to other modalities, investigating local restricted attention, and making generation less sequential",
+     "Replacing attention with recurrence",
+     "Removing multi-head attention",
+     "Training only on text forever"
+    ],
+    "correct_answer": "Extending the Transformer to other modalities, investigating local restricted attention, and making generation less sequential",
+    "explanation": "The authors plan to extend to non-text modalities, investigate local restricted attention for large inputs, and make generation less sequential.",
+    "claim_ids": [
+     "a91f98e7-8324-4ff2-8e83-8a1a9cefb84d"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "dcf4656a-5daa-40f0-aaf5-060bc40aca7b",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 23,
+    "question": "What would restricting self-attention to a neighborhood of size r do to the maximum path length?",
+    "options": [
+     "Increase it to O(n/r)",
+     "Reduce it to O(1)",
+     "Reduce it to O(log n)",
+     "Leave it unchanged"
+    ],
+    "correct_answer": "Increase it to O(n/r)",
+    "explanation": "Restricting self-attention to a neighborhood of size r would increase maximum path length to O(n/r), which the authors leave for future work.",
+    "claim_ids": [
+     "1b92e03c-c8cd-4ce4-9cb6-4eec05696875"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "9e5d542c-2fc8-43c9-87f7-cf5f4df571d9",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 24,
+    "question": "What is notable about the Transformer's novelty claim?",
+    "options": [
+     "To the authors' knowledge, it is the first transduction model relying entirely on self-attention without sequence-aligned RNNs or convolution",
+     "It is the first model to use any attention",
+     "It is the first model to use convolution",
+     "It is the first model to use RNNs"
+    ],
+    "correct_answer": "To the authors' knowledge, it is the first transduction model relying entirely on self-attention without sequence-aligned RNNs or convolution",
+    "explanation": "The authors claim, to the best of their knowledge, that it is the first transduction model relying entirely on self-attention.",
+    "claim_ids": [
+     "eef3eec2-d892-40a0-a018-9353365c9d13"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "6942c506-f6b8-4bc6-bc63-a955acc0dfcb",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 25,
+    "question": "What does the model share between the embedding layers?",
+    "options": [
+     "The same weight matrix is shared between the two embedding layers and the pre-softmax linear transformation",
+     "Nothing is shared",
+     "Only the attention heads",
+     "Only the positional encodings"
+    ],
+    "correct_answer": "The same weight matrix is shared between the two embedding layers and the pre-softmax linear transformation",
+    "explanation": "The paper states the same weight matrix is shared between the two embedding layers and the pre-softmax linear transformation.",
+    "claim_ids": [
+     "9f36dd6c-6878-4015-a3d4-f4d4ac96a302"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "da19f18f-f554-4213-9f75-32356ed74536",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 26,
+    "question": "Why is dot-product attention preferred over additive attention in practice?",
+    "options": [
+     "It is much faster and more space-efficient, though theoretical complexity is similar",
+     "It has much lower theoretical complexity",
+     "It is more accurate in all settings",
+     "It requires no softmax"
+    ],
+    "correct_answer": "It is much faster and more space-efficient, though theoretical complexity is similar",
+    "explanation": "The two are similar in theoretical complexity, but dot-product attention is much faster and more space-efficient in practice.",
+    "claim_ids": [
+     "1db9af45-7637-457a-8021-5a67c56c757e"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   }
+  ],
+  "learning_derivations": [
+   {
+    "id": "632b165b-bd91-4b0c-84ba-7f3169964808",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 0,
+    "title": "From scaled dot-product attention to multi-head attention dimensions",
+    "steps": [
+     {
+      "formula": "Attention(Q, K, V) = softmax( Q K^T / sqrt(d_k) ) V",
+      "claim_ids": [
+       "a3252d4e-e352-4f7c-9e59-aed99afdc9a6"
+      ],
+      "explanation": "Scaled dot-product attention takes the dot products of the query with all keys, divides each by sqrt(dk), and applies a softmax to obtain weights on the values."
+     },
+     {
+      "formula": "MultiHead(Q, K, V) = Concat(head_1, ..., head_h) W^O, where head_i = Attention(Q W_i^Q, K W_i^K, V W_i^V)",
+      "claim_ids": [
+       "2127bc28-b70b-4c68-903b-9b9cc61bd022"
+      ],
+      "explanation": "Multi-head attention linearly projects queries, keys and values h times, applies attention in parallel on each projection, then concatenates the head outputs and projects them again."
+     },
+     {
+      "formula": "d_k = d_v = d_model / h = 512 / 8 = 64",
+      "claim_ids": [
+       "2127bc28-b70b-4c68-903b-9b9cc61bd022"
+      ],
+      "explanation": "The paper uses h = 8 parallel heads, and each head's key/value dimension is the model dimension divided by h. With dmodel = 512 this gives 64."
+     },
+     {
+      "formula": "cost(h heads, d_k = d_model/h) ≈ cost(1 head, full d_model); single-head ≈ best − 0.9 BLEU",
+      "claim_ids": [
+       "2127bc28-b70b-4c68-903b-9b9cc61bd022",
+       "4c23290f-b136-4c2c-a136-e11f753cbdd2"
+      ],
+      "explanation": "Because each head has a reduced dimension, the total computational cost is similar to single-head attention at full dimensionality. The ablation reports that single-head attention is 0.9 BLEU worse than the best setting, and quality also drops with too many heads."
+     }
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "9e67e42a-a489-4108-986c-8add9372fb82",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 1,
+    "title": "Learning-rate schedule and training budget",
+    "steps": [
+     {
+      "formula": "Adam: β1 = 0.9, β2 = 0.98, ε = 10^-9",
+      "claim_ids": [
+       "d0317e86-7f7f-47fd-9ac5-82b307345f12"
+      ],
+      "explanation": "Training uses the Adam optimizer with the stated hyperparameters."
+     },
+     {
+      "formula": "lr ∝ step (step ≤ 4000);  lr ∝ 1/sqrt(step) (step > 4000);  warmup_steps = 4000",
+      "claim_ids": [
+       "d0317e86-7f7f-47fd-9ac5-82b307345f12"
+      ],
+      "explanation": "The learning rate increases linearly for the first 4000 warmup steps and then decays proportionally to the inverse square root of the step number. This is a verbal description of the schedule's shape, not a quoted formula."
+     },
+     {
+      "formula": "base: 100,000 steps × 0.4 s ≈ 40,000 s ≈ 11 h ≈ 12 h;  big: 300,000 steps × 1.0 s = 300,000 s ≈ 3.5 days",
+      "claim_ids": [
+       "8eaa9523-5832-4c18-aac9-4f29c437ae16"
+      ],
+      "explanation": "Base models were trained for 100,000 steps (12 hours) and big models for 300,000 steps (3.5 days). The metrics give step times of 0.4 s for base and 1.0 s for big, which are consistent with these totals."
+     }
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "3de42d21-4af0-4c62-aca7-21508e47e2af",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 2,
+    "title": "Encoder sub-layer structure and regularization",
+    "steps": [
+     {
+      "formula": "Encoder = 6 × [ MultiHeadSelfAttn → FFN ],  d_model = 512",
+      "claim_ids": [
+       "76f92a24-cf59-47ae-9a0f-fd60847c6b6f"
+      ],
+      "explanation": "The encoder is a stack of N = 6 identical layers. Each layer has two sub-layers: multi-head self-attention and a position-wise feed-forward network."
+     },
+     {
+      "formula": "output = LayerNorm( x + Sublayer(x) )",
+      "claim_ids": [
+       "76f92a24-cf59-47ae-9a0f-fd60847c6b6f"
+      ],
+      "explanation": "Each sub-layer is wrapped in a residual connection followed by layer normalization."
+     },
+     {
+      "formula": "P_drop = 0.1;  ε_ls = 0.1  ⇒  perplexity ↑, accuracy/BLEU ↑",
+      "claim_ids": [
+       "35b6224b-79ad-4ded-b49f-b61829248fd1"
+      ],
+      "explanation": "Regularization uses residual dropout with Pdrop = 0.1 for the base model, and label smoothing of 0.1. Label smoothing hurts perplexity because the model learns to be more unsure, but it improves accuracy and BLEU."
+     }
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "2a1ca197-ca39-4fea-83db-47e448cb04b7",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 3,
+    "title": "Reading the headline translation results",
+    "steps": [
+     {
+      "formula": "28.4 − 26.36 = 2.04 BLEU  (> 2.0)",
+      "claim_ids": [
+       "8f09e290-f871-4fed-b083-5197b9f233ef"
+      ],
+      "explanation": "The big Transformer reaches 28.4 BLEU on WMT 2014 English-to-German. The best previous ensemble in Table 2 (ConvS2S Ensemble) scores 26.36 BLEU."
+     },
+     {
+      "formula": "27.3 − 26.36 = 0.94 BLEU",
+      "claim_ids": [
+       "b246133c-611a-4455-a78a-27a0040fb4a0"
+      ],
+      "explanation": "The base model scores 27.3 BLEU on English-to-German. This is also above the best previous ensemble's 26.36, consistent with the claim that even the base model surpasses all previously published models and ensembles."
+     },
+     {
+      "formula": "EN-FR big: 41.8 BLEU, 3.5 days on 8 GPUs",
+      "claim_ids": [
+       "92b895d2-abcb-455b-a039-db42c59b335a"
+      ],
+      "explanation": "On English-to-French the big model sets a new single-model state of the art of 41.8 BLEU after 3.5 days on eight GPUs, at a small fraction of the training cost of the best literature models."
+     },
+     {
+      "formula": "cost_base = 3.3 × 10^18 FLOPs;  cost_big = 2.3 × 10^19 FLOPs",
+      "claim_ids": [
+       "8073c8d5-ce72-49a0-8312-c273f84c83a5"
+      ],
+      "explanation": "Training cost from Table 2 for English-to-German: 3.3·10^18 FLOPs for the base model and 2.3·10^19 FLOPs for the big model. The Transformer outperforms previous state-of-the-art models in BLEU at a fraction of their training cost."
+     }
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   }
+  ],
+  "learning_interactives": [
+   {
+    "id": "7ae1d89d-ed1a-4bb1-b5d2-525d8d721396",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 3,
+    "title": "Training time from step count and step time",
+    "description": "Estimates wall-clock training time as steps times seconds per step. The paper reports base models at 100,000 steps with 0.4 s per step (about 12 hours) and big models at 300,000 steps with 1.0 s per step (about 3.5 days) on 8 P100 GPUs. The slider ranges and step sizes are illustrative, not values reported in the paper. The default settings correspond to the base model.",
+    "parameters": [
+     {
+      "max": 400000.0,
+      "min": 10000.0,
+      "name": "steps",
+      "step": 10000.0,
+      "unit": "steps",
+      "label": "Training steps",
+      "default": 100000.0
+     },
+     {
+      "max": 2.0,
+      "min": 0.1,
+      "name": "stept",
+      "step": 0.1,
+      "unit": "s",
+      "label": "Seconds per step",
+      "default": 0.4
+     }
+    ],
+    "formula": "steps * stept / 3600",
+    "output_label": "Training time (hours)",
+    "claim_ids": [
+     "8eaa9523-5832-4c18-aac9-4f29c437ae16"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "f9915d37-9bab-4fb0-8b2f-5cddf04b0045",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 0,
+    "title": "Multi-head attention: per-head dimension and cost",
+    "description": "Shows how the per-head key/value dimension dk = dv = dmodel/h changes with the number of heads h, and how the total projection width h*dk stays equal to dmodel, so cost stays similar to single-head attention with full dimensionality. The paper's base values are dmodel = 512 and h = 8 (giving dk = 64). The slider ranges and step sizes are illustrative choices, not values reported in the paper; the paper only reports the h = 8 setting and that single-head attention is 0.9 BLEU worse than the best setting while too many heads also hurts.",
+    "parameters": [
+     {
+      "max": 1024.0,
+      "min": 64.0,
+      "name": "dmodel",
+      "step": 64.0,
+      "unit": null,
+      "label": "Model dimension dmodel",
+      "default": 512.0
+     },
+     {
+      "max": 32.0,
+      "min": 1.0,
+      "name": "h",
+      "step": 1.0,
+      "unit": "heads",
+      "label": "Number of heads h",
+      "default": 8.0
+     }
+    ],
+    "formula": "dmodel / h",
+    "output_label": "Per-head dimension dk = dv",
+    "claim_ids": [
+     "2127bc28-b70b-4c68-903b-9b9cc61bd022"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "52cf991d-559f-430c-9993-14cf44734baa",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 1,
+    "title": "Scaled dot-product attention scaling factor",
+    "description": "Explores the 1/sqrt(dk) divisor applied to query-key dot products before the softmax. You choose dk and a raw dot-product value and see the scaled score. The paper's default dk is 64. The slider ranges, the raw dot product range and the steps are illustrative, not values reported in the paper.",
+    "parameters": [
+     {
+      "max": 512.0,
+      "min": 1.0,
+      "name": "dk",
+      "step": 1.0,
+      "unit": null,
+      "label": "Key dimension dk",
+      "default": 64.0
+     },
+     {
+      "max": 100.0,
+      "min": -100.0,
+      "name": "dot",
+      "step": 1.0,
+      "unit": null,
+      "label": "Raw query-key dot product (illustrative)",
+      "default": 40.0
+     }
+    ],
+    "formula": "dot / sqrt(dk)",
+    "output_label": "Scaled attention score before softmax",
+    "claim_ids": [
+     "a3252d4e-e352-4f7c-9e59-aed99afdc9a6",
+     "2127bc28-b70b-4c68-903b-9b9cc61bd022"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "e9e104ab-31c1-4ba3-8250-e85bf9161d3c",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 2,
+    "title": "Learning rate schedule with warmup",
+    "description": "Explores the paper's schedule: the learning rate rises linearly for warmup_steps and then decays proportionally to the inverse square root of the step number, i.e. lrate = dmodel^-0.5 * min(step^-0.5, step*warmup^-1.5). The paper uses warmup_steps = 4000 and dmodel = 512. The slider ranges and step sizes are illustrative, not values reported in the paper. Training steps of 100,000 (base) and 300,000 (big) are reported, but the full range of the step slider is illustrative.",
+    "parameters": [
+     {
+      "max": 300000.0,
+      "min": 1.0,
+      "name": "step",
+      "step": 100.0,
+      "unit": "steps",
+      "label": "Training step",
+      "default": 4000.0
+     },
+     {
+      "max": 20000.0,
+      "min": 500.0,
+      "name": "warmup",
+      "step": 500.0,
+      "unit": "steps",
+      "label": "Warmup steps",
+      "default": 4000.0
+     },
+     {
+      "max": 1024.0,
+      "min": 128.0,
+      "name": "dmodel",
+      "step": 64.0,
+      "unit": null,
+      "label": "Model dimension dmodel",
+      "default": 512.0
+     }
+    ],
+    "formula": "dmodel ** (-0.5) * min(step ** (-0.5), step * warmup ** (-1.5))",
+    "output_label": "Learning rate",
+    "claim_ids": [
+     "d0317e86-7f7f-47fd-9ac5-82b307345f12"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   },
+   {
+    "id": "aa2dba77-fe0f-4e0c-99a9-c0f0b2b83182",
+    "paper_id": "b0953adf-8a25-4fff-add7-b41f88dfac3d",
+    "order": 4,
+    "title": "BLEU margin over previous best on English-to-German",
+    "description": "Computes the Transformer's BLEU margin over a comparison system on WMT 2014 English-to-German. The paper reports 28.4 BLEU for Transformer (big), 27.3 for the base model, 26.36 for the ConvS2S ensemble and 23.75 for ByteNet in Table 2. The slider ranges and steps are illustrative; only the default values come from the paper. Defaults compare the big model against the ConvS2S ensemble, a margin of over 2 BLEU as claimed in the paper.",
+    "parameters": [
+     {
+      "max": 32.0,
+      "min": 20.0,
+      "name": "ours",
+      "step": 0.05,
+      "unit": "BLEU",
+      "label": "Transformer BLEU",
+      "default": 28.4
+     },
+     {
+      "max": 32.0,
+      "min": 20.0,
+      "name": "other",
+      "step": 0.05,
+      "unit": "BLEU",
+      "label": "Comparison model BLEU",
+      "default": 26.36
+     }
+    ],
+    "formula": "ours - other",
+    "output_label": "BLEU improvement",
+    "claim_ids": [
+     "8f09e290-f871-4fed-b083-5197b9f233ef",
+     "b246133c-611a-4455-a78a-27a0040fb4a0"
+    ],
+    "created_at": "2026-10-01T17:10:49.59349+00:00"
+   }
+  ],
+  "source_references": [
+   {
+    "id": "bf169619-240d-477d-8ae9-9dafa17ff521",
+    "claim_id": "ea2fc2eb-c81e-4d2d-a1e5-706f23ad08a0",
+    "page": 1,
+    "excerpt": "We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely.",
+    "locator": "Abstract"
+   },
+   {
+    "id": "dc109fa6-57b8-4618-a285-357d161fbe5f",
+    "claim_id": "8f09e290-f871-4fed-b083-5197b9f233ef",
+    "page": 1,
+    "excerpt": "Our model achieves 28.4 BLEU on the WMT 2014 English-\nto-German translation task, improving over the existing best results, including\nensembles, by over 2 BLEU.",
+    "locator": "Abstract"
+   },
+   {
+    "id": "105aac49-5283-4549-aaaf-8c05ecd511ff",
+    "claim_id": "8f09e290-f871-4fed-b083-5197b9f233ef",
+    "page": 8,
+    "excerpt": "outperforms the best previously reported models (including ensembles) by more than 2.0\nBLEU, establishing a new state-of-the-art BLEU score of 28.4.",
+    "locator": "Section 6.1"
+   },
+   {
+    "id": "4f8bc4d6-37b4-4073-abcd-33ff041bef3c",
+    "claim_id": "92b895d2-abcb-455b-a039-db42c59b335a",
+    "page": 1,
+    "excerpt": "our model establishes a new single-model state-of-the-art BLEU score of 41.8 after\ntraining for 3.5 days on eight GPUs, a small fraction of the training costs of the\nbest models from the literature.",
+    "locator": "Abstract"
+   },
+   {
+    "id": "9572faf7-3a3c-46f7-8162-03ce9883a4da",
+    "claim_id": "c59941a8-970a-4abf-9e0e-0b7f67b60254",
+    "page": 8,
+    "excerpt": "our big model achieves a BLEU score of 41.0,\noutperforming all of the previously published single models, at less than 1/4 the training cost of the\nprevious state-of-the-art model.",
+    "locator": "Section 6.1"
+   },
+   {
+    "id": "5b42b115-f5e2-4da1-96cc-0e1d465caaa8",
+    "claim_id": "b246133c-611a-4455-a78a-27a0040fb4a0",
+    "page": 8,
+    "excerpt": "Even our base model\nsurpasses all previously published models and ensembles, at a fraction of the training cost of any of\nthe competitive models.",
+    "locator": "Section 6.1"
+   },
+   {
+    "id": "3fb63824-38fa-4570-9090-8f818468156d",
+    "claim_id": "0f44ac5d-6ef4-41f7-af27-bd296c0a7b42",
+    "page": 1,
+    "excerpt": "Experiments on two machine translation tasks show these models to\nbe superior in quality while being more parallelizable and requiring significantly\nless time to train.",
+    "locator": "Abstract"
+   },
+   {
+    "id": "f65b6870-2ccb-4c96-9ec2-7ec18b11b53f",
+    "claim_id": "0f44ac5d-6ef4-41f7-af27-bd296c0a7b42",
+    "page": 10,
+    "excerpt": "For translation tasks, the Transformer can be trained significantly faster than architectures based\non recurrent or convolutional layers.",
+    "locator": "Conclusion"
+   },
+   {
+    "id": "8cf81cce-1d9f-4bbc-8833-29cb41a713b1",
+    "claim_id": "72a9fd4b-73e0-490e-9a7c-3e412af5b079",
+    "page": 1,
+    "excerpt": "We show that the Transformer generalizes well to\nother tasks by applying it successfully to English constituency parsing both with\nlarge and limited training data.",
+    "locator": null
+   },
+   {
+    "id": "f0aeda08-a747-4e04-94b3-0553c13908fa",
+    "claim_id": "e47f24c4-f3f6-4540-af61-1fb98bb59edd",
+    "page": 2,
+    "excerpt": "This inherently\nsequential nature precludes parallelization within training examples, which becomes critical at longer\nsequence lengths, as memory constraints limit batching across examples.",
+    "locator": "Introduction"
+   },
+   {
+    "id": "8817ff17-ef18-4bf5-8dc2-da843d097df7",
+    "claim_id": "77dd72bf-6475-45d0-ae7e-fc20f494d854",
+    "page": 2,
+    "excerpt": "In these models,\nthe number of operations required to relate signals from two arbitrary input or output positions grows\nin the distance between positions, linearly for ConvS2S and logarithmically for ByteNet.",
+    "locator": "Section 2"
+   },
+   {
+    "id": "b6a80599-907a-4c75-9faa-b474f32fe683",
+    "claim_id": "77dd72bf-6475-45d0-ae7e-fc20f494d854",
+    "page": 2,
+    "excerpt": "In the Transformer this is\nreduced to a constant number of operations, albeit at the cost of reduced effective resolution due\nto averaging attention-weighted positions",
+    "locator": "Section 2"
+   },
+   {
+    "id": "88878805-448b-4f63-9ef6-28f6eb10e28a",
+    "claim_id": "eef3eec2-d892-40a0-a018-9353365c9d13",
+    "page": 2,
+    "excerpt": "To the best of our knowledge, however, the Transformer is the first transduction model relying\nentirely on self-attention to compute representations of its input and output without using sequence-\naligned RNNs or convolution.",
+    "locator": "Section 2"
+   },
+   {
+    "id": "838c7129-8dfa-4d28-84c0-cde94acb21fd",
+    "claim_id": "76f92a24-cf59-47ae-9a0f-fd60847c6b6f",
+    "page": 3,
+    "excerpt": "The encoder is composed of a stack of N = 6 identical layers. Each layer has two\nsub-layers.",
+    "locator": "Section 3.1"
+   },
+   {
+    "id": "06e8df8d-e998-425c-bf8c-13a3e1eb6656",
+    "claim_id": "76f92a24-cf59-47ae-9a0f-fd60847c6b6f",
+    "page": 3,
+    "excerpt": "That is, the output of each sub-layer is\nLayerNorm(x + Sublayer(x))",
+    "locator": "Section 3.1"
+   },
+   {
+    "id": "7994dc1b-37fb-4382-b759-1c78c98e8bfd",
+    "claim_id": "3971c391-6a6a-4485-8e26-8e6ca18c3a15",
+    "page": 3,
+    "excerpt": "We also modify the self-attention\nsub-layer in the decoder stack to prevent positions from attending to subsequent positions.",
+    "locator": null
+   },
+   {
+    "id": "457ffdcb-631f-4380-86e1-f90e9583ab6e",
+    "claim_id": "a3252d4e-e352-4f7c-9e59-aed99afdc9a6",
+    "page": 4,
+    "excerpt": "We compute the dot products of the\nquery with all keys, divide each by √dk, and apply a softmax function to obtain the weights on the\nvalues.",
+    "locator": "Section 3.2.1"
+   },
+   {
+    "id": "d2bedc99-fc22-4816-a1fb-3e9ec7b1ae95",
+    "claim_id": "1db9af45-7637-457a-8021-5a67c56c757e",
+    "page": 4,
+    "excerpt": "While the two are similar in theoretical complexity, dot-product attention is\nmuch faster and more space-efficient in practice",
+    "locator": "Section 3.2.1"
+   },
+   {
+    "id": "a937a846-650c-438a-90d0-52195a3aa072",
+    "claim_id": "d16638c4-661a-4aa7-86a9-2f91846a71a9",
+    "page": 4,
+    "excerpt": "We suspect that for large values of\ndk, the dot products grow large in magnitude, pushing the softmax function into regions where it has\nextremely small gradients 4.",
+    "locator": "Section 3.2.1"
+   },
+   {
+    "id": "57468448-af9e-4487-9358-ac142bcd0b02",
+    "claim_id": "2127bc28-b70b-4c68-903b-9b9cc61bd022",
+    "page": 5,
+    "excerpt": "In this work we employ h = 8 parallel attention layers, or heads. For each of these we use\ndk = dv = dmodel/h = 64.",
+    "locator": "Section 3.2.2"
+   },
+   {
+    "id": "b4cb8da6-0187-4007-acc9-f9977f31bb5f",
+    "claim_id": "2127bc28-b70b-4c68-903b-9b9cc61bd022",
+    "page": 5,
+    "excerpt": "Due to the reduced dimension of each head, the total computational cost\nis similar to that of single-head attention with full dimensionality.",
+    "locator": "Section 3.2.2"
+   },
+   {
+    "id": "baab44ec-defd-45e1-8a52-105f701ce3c6",
+    "claim_id": "10077d79-d390-4f37-b088-be6d05e9940b",
+    "page": 5,
+    "excerpt": "Multi-head attention allows the model to jointly attend to information from different representation\nsubspaces at different positions. With a single attention head, averaging inhibits this.",
+    "locator": "Section 3.2.2"
+   },
+   {
+    "id": "87bcce82-6ba4-4ae3-852f-4b9d0b05fcce",
+    "claim_id": "8ae00268-e017-42b0-afe7-4946fdcd53df",
+    "page": 5,
+    "excerpt": "The Transformer uses multi-head attention in three different ways:",
+    "locator": "Section 3.2.3"
+   },
+   {
+    "id": "5afc0798-f397-4b01-827a-2f48abf239ff",
+    "claim_id": "9f36dd6c-6878-4015-a3d4-f4d4ac96a302",
+    "page": 5,
+    "excerpt": "we share the same weight matrix between the two embedding layers and the pre-softmax\nlinear transformation, similar to [30].",
+    "locator": "Section 3.4"
+   },
+   {
+    "id": "a4ddf42f-236e-4ae4-a784-5277b29ebe67",
+    "claim_id": "67215443-dd17-4743-832b-e2d92689eb42",
+    "page": 6,
+    "excerpt": "In this work, we use sine and cosine functions of different frequencies:",
+    "locator": "Section 3.5"
+   },
+   {
+    "id": "54fc74e3-a5d4-4cc6-b355-0b2063be3062",
+    "claim_id": "aa8cebc0-401c-4bf4-a75b-9dccccca2d66",
+    "page": 6,
+    "excerpt": "We\nchose this function because we hypothesized it would allow the model to easily learn to attend by\nrelative positions",
+    "locator": "Section 3.5"
+   },
+   {
+    "id": "d022d04a-770a-4844-957a-cad38745e10c",
+    "claim_id": "aa8cebc0-401c-4bf4-a75b-9dccccca2d66",
+    "page": 6,
+    "excerpt": "We chose the sinusoidal version\nbecause it may allow the model to extrapolate to sequence lengths longer than the ones encountered\nduring training.",
+    "locator": "Section 3.5"
+   },
+   {
+    "id": "4d980af9-cdc1-4679-8be1-03af3f269c58",
+    "claim_id": "5b727c89-1a90-4594-b3e2-aec7aff3b067",
+    "page": 6,
+    "excerpt": "found that the two\nversions produced nearly identical results (see Table 3 row (E))",
+    "locator": "Section 3.5"
+   },
+   {
+    "id": "2d4be815-fed2-4ca6-973f-dbb687cc3de1",
+    "claim_id": "5b727c89-1a90-4594-b3e2-aec7aff3b067",
+    "page": 9,
+    "excerpt": "and observe nearly identical\nresults to the base model.",
+    "locator": "Section 6.2"
+   },
+   {
+    "id": "c758bb9a-30f2-4e94-939d-5b42469654b0",
+    "claim_id": "3dd25d5c-3e88-45ba-acbd-909de21b0687",
+    "page": 6,
+    "excerpt": "As noted in Table 1, a self-attention layer connects all positions with a constant number of sequentially\nexecuted operations, whereas a recurrent layer requires O(n) sequential operations.",
+    "locator": "Section 4"
+   },
+   {
+    "id": "86c118c1-27b1-40ba-bff4-9d0d019a20e0",
+    "claim_id": "3dd25d5c-3e88-45ba-acbd-909de21b0687",
+    "page": 7,
+    "excerpt": "length n is smaller than the representation dimensionality d, which is most often the case with\nsentence representations",
+    "locator": "Section 4"
+   },
+   {
+    "id": "24509c7f-6194-49e0-a7f9-6969d6b37c1f",
+    "claim_id": "1b92e03c-c8cd-4ce4-9cb6-4eec05696875",
+    "page": 7,
+    "excerpt": "This would increase the maximum\npath length to O(n/r). We plan to investigate this approach further in future work.",
+    "locator": null
+   },
+   {
+    "id": "7d8200a4-f616-4b34-9d25-4f90e36439c5",
+    "claim_id": "7d22d98d-5a33-45a4-b51b-5edd5eb8fded",
+    "page": 7,
+    "excerpt": "Not only do individual attention heads clearly learn to perform different tasks, many appear to exhibit behavior related to the syntactic\nand semantic structure of the sentences.",
+    "locator": null
+   },
+   {
+    "id": "1ec06b85-0b4d-4e3e-a44f-ca39d3fa3edf",
+    "claim_id": "6d8f836d-d321-4ff2-9e95-b1612653bb3e",
+    "page": 7,
+    "excerpt": "We trained on the standard WMT 2014 English-German dataset consisting of about 4.5 million\nsentence pairs.",
+    "locator": null
+   },
+   {
+    "id": "e1c44815-74f8-4418-be4c-b9fc3d136660",
+    "claim_id": "6d8f836d-d321-4ff2-9e95-b1612653bb3e",
+    "page": 7,
+    "excerpt": "For English-French, we used the significantly larger WMT\n2014 English-French dataset consisting of 36M sentences and split tokens into a 32000 word-piece\nvocabulary [38].",
+    "locator": null
+   },
+   {
+    "id": "fdc8ea6a-0b31-4176-8ebc-5ab694708a04",
+    "claim_id": "8eaa9523-5832-4c18-aac9-4f29c437ae16",
+    "page": 7,
+    "excerpt": "We trained the base models for a total of 100,000 steps or 12 hours.",
+    "locator": "Section 5.2"
+   },
+   {
+    "id": "2500c445-231e-4ecc-9202-196eb5223555",
+    "claim_id": "8eaa9523-5832-4c18-aac9-4f29c437ae16",
+    "page": 7,
+    "excerpt": "The big models were trained for 300,000 steps\n(3.5 days).",
+    "locator": "Section 5.2"
+   },
+   {
+    "id": "c6edfb76-d126-41dd-b3b1-f074f0414941",
+    "claim_id": "d0317e86-7f7f-47fd-9ac5-82b307345f12",
+    "page": 7,
+    "excerpt": "We used the Adam optimizer [20] with β1 = 0.9, β2 = 0.98 and ϵ = 10−9.",
+    "locator": "Section 5.3"
+   },
+   {
+    "id": "4c2bf2e1-e474-41be-9a24-b3eaf9e30493",
+    "claim_id": "d0317e86-7f7f-47fd-9ac5-82b307345f12",
+    "page": 7,
+    "excerpt": "We used\nwarmup_steps = 4000.",
+    "locator": "Section 5.3"
+   },
+   {
+    "id": "531732d4-5e31-4be5-8c9a-cfc4d7d56887",
+    "claim_id": "35b6224b-79ad-4ded-b49f-b61829248fd1",
+    "page": 8,
+    "excerpt": "For the base model, we use a rate of\nPdrop = 0.1.",
+    "locator": "Section 5.4"
+   },
+   {
+    "id": "21a67b9f-53cb-41c2-b990-cbb6f3c9069f",
+    "claim_id": "35b6224b-79ad-4ded-b49f-b61829248fd1",
+    "page": 8,
+    "excerpt": "This\nhurts perplexity, as the model learns to be more unsure, but improves accuracy and BLEU score.",
+    "locator": "Section 5.4"
+   },
+   {
+    "id": "7eafef66-e372-4900-8318-9222b173cdb0",
+    "claim_id": "8073c8d5-ce72-49a0-8312-c273f84c83a5",
+    "page": 8,
+    "excerpt": "The Transformer achieves better BLEU scores than previous state-of-the-art models on the\nEnglish-to-German and English-to-French newstest2014 tests at a fraction of the training cost.",
+    "locator": "Table 2"
+   },
+   {
+    "id": "389e8bd9-7884-4081-a0af-854e6a96914c",
+    "claim_id": "4541f82e-a443-408b-a78d-5af8840d5d82",
+    "page": 8,
+    "excerpt": "For the base models, we used a single model obtained by averaging the last 5 checkpoints, which\nwere written at 10-minute intervals. For the big models, we averaged the last 20 checkpoints.",
+    "locator": "Section 6.1"
+   },
+   {
+    "id": "5440d94e-54ef-4fdb-aa21-efecf07cfb94",
+    "claim_id": "4541f82e-a443-408b-a78d-5af8840d5d82",
+    "page": 8,
+    "excerpt": "We\nused beam search with a beam size of 4 and length penalty α = 0.6 [38].",
+    "locator": "Section 6.1"
+   },
+   {
+    "id": "2706941d-cc61-4779-8bcb-dfb6db219f75",
+    "claim_id": "4c23290f-b136-4c2c-a136-e11f753cbdd2",
+    "page": 9,
+    "excerpt": "While single-head\nattention is 0.9 BLEU worse than the best setting, quality also drops off with too many heads.",
+    "locator": "Section 6.2"
+   },
+   {
+    "id": "23595af8-5428-4ed7-ba1f-bd27bcc7a553",
+    "claim_id": "b48b38fc-91f7-4544-815e-54a0f760902f",
+    "page": 9,
+    "excerpt": "we observe that reducing the attention key size dk hurts model quality. This\nsuggests that determining compatibility is not easy and that a more sophisticated compatibility\nfunction than dot product may be beneficial.",
+    "locator": null
+   },
+   {
+    "id": "9017ad50-c69c-42d8-b7b1-98dbcdb1231e",
+    "claim_id": "c0b12d69-a302-4a94-8b55-5823981c78fd",
+    "page": 9,
+    "excerpt": "bigger models are better, and dropout is very helpful in avoiding over-fitting.",
+    "locator": null
+   },
+   {
+    "id": "6a5c6cd6-9f5c-4a1e-9f7b-2888458c6f36",
+    "claim_id": "7d604aa7-6e80-4c2e-a147-8ef7971c0451",
+    "page": 10,
+    "excerpt": "Our results in Table 4 show that despite the lack of task-specific tuning our model performs sur-\nprisingly well, yielding better results than all previously reported models with the exception of the\nRecurrent Neural Network Grammar [8].",
+    "locator": null
+   },
+   {
+    "id": "efc9c25f-12a3-4c97-9db2-3a0aa52910e8",
+    "claim_id": "03124ac3-343d-4c86-a30c-3d8135fa3249",
+    "page": 10,
+    "excerpt": "In contrast to RNN sequence-to-sequence models [37], the Transformer outperforms the Berkeley-\nParser [29] even when training only on the WSJ training set of 40K sentences.",
+    "locator": null
+   },
+   {
+    "id": "1c135d87-ba22-4cf9-b571-718ccf18814e",
+    "claim_id": "80e72f28-875d-482f-afa2-ef6892a3d987",
+    "page": 9,
+    "excerpt": "This task presents specific challenges: the output is subject to strong structural\nconstraints and is significantly longer than the input.",
+    "locator": null
+   },
+   {
+    "id": "88a09ba1-86b7-4b24-935d-c615b8347418",
+    "claim_id": "80e72f28-875d-482f-afa2-ef6892a3d987",
+    "page": 9,
+    "excerpt": "Furthermore, RNN sequence-to-sequence\nmodels have not been able to attain state-of-the-art results in small-data regimes [37].",
+    "locator": null
+   },
+   {
+    "id": "a77d6280-874c-4567-8da0-e297a9cfc101",
+    "claim_id": "30bf3fd6-c4e5-4648-a762-24d84774b2d9",
+    "page": 9,
+    "excerpt": "We performed only a small number of experiments to select the dropout, both attention and residual\n(section 5.4), learning rates and beam size on the Section 22 development set",
+    "locator": null
+   },
+   {
+    "id": "f4e464b9-e65c-41a7-a942-667cfe27d57f",
+    "claim_id": "a91f98e7-8324-4ff2-8e83-8a1a9cefb84d",
+    "page": 10,
+    "excerpt": "We plan to extend the Transformer to problems involving input and output modalities other than text and\nto investigate local, restricted attention mechanisms to efficiently handle large inputs and outputs\nsuch as images, audio and video.",
+    "locator": null
+   },
+   {
+    "id": "75745559-c4f7-419d-80e7-95eea2472eb6",
+    "claim_id": "a91f98e7-8324-4ff2-8e83-8a1a9cefb84d",
+    "page": 10,
+    "excerpt": "Making generation less sequential is another research goals of ours.",
+    "locator": null
+   }
+  ]
+ }
+}
